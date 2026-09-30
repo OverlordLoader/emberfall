@@ -1,0 +1,16 @@
+# Xcode
+.DS_Store
+build/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+DerivedData/
+release-output/
+
+# Python
+__pycache__/
+*.pyc
+
+# Secrets (never commit)
+*.p12
+*.mobileprovision
+*.p8

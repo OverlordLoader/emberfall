@@ -1,0 +1,246 @@
+{
+  "away": {
+    "body": "Your mills kept turning and your fields kept growing.",
+    "title": "While you were away…"
+  },
+  "buildings": [
+    {
+      "description": "Heart of your city. Upgrading the Citadel raises build speed and unlocks new building levels.",
+      "flavor": "The last hearth of the warm lands.",
+      "icon": "crown.fill",
+      "key": "citadel",
+      "name": "Ember Citadel"
+    },
+    {
+      "description": "Grows food to feed your troops. Higher levels harvest faster and store more.",
+      "flavor": "Golden grain under a stubborn sun.",
+      "icon": "leaf.fill",
+      "key": "farm",
+      "name": "Sunfield Farm"
+    },
+    {
+      "description": "Saws cinderwood into lumber for construction. Higher levels cut faster.",
+      "flavor": "Charred trunks, still good timber.",
+      "icon": "tree.fill",
+      "key": "lumber",
+      "name": "Cinderwood Mill"
+    },
+    {
+      "description": "Quarries basalt stone for walls and engines. Higher levels dig faster.",
+      "flavor": "Black stone, cut with fire.",
+      "icon": "mountain.2.fill",
+      "key": "quarry",
+      "name": "Basalt Quarry"
+    },
+    {
+      "description": "Mints gold from ember ore. Gold pays for research, training, and commanders.",
+      "flavor": "Coins stamped with a living flame.",
+      "icon": "dollarsign.circle.fill",
+      "key": "goldmint",
+      "name": "Ember Mint"
+    },
+    {
+      "description": "Trains your troops. Higher levels train faster and unlock stronger tiers with research.",
+      "flavor": "Where soft villagers become hard soldiers.",
+      "icon": "shield.fill",
+      "key": "barracks",
+      "name": "Ashguard Barracks"
+    },
+    {
+      "description": "Researches technologies that boost your economy and army. Gates Tier 2 and Tier 3 troops.",
+      "flavor": "Knowledge is the kindling of victory.",
+      "icon": "book.fill",
+      "key": "academy",
+      "name": "Pyrelight Academy"
+    },
+    {
+      "description": "Raises your city's defense and (with PvP in phase 2) protects your stores.",
+      "flavor": "Glass-black stone. The Frost breaks here.",
+      "icon": "square.grid.2x2.fill",
+      "key": "walls",
+      "name": "Obsidian Walls"
+    }
+  ],
+  "commanders": {
+    "pools": {
+      "common": [
+        "Bram",
+        "Sella",
+        "Odo",
+        "Mira",
+        "Tovin",
+        "Hessa"
+      ],
+      "epic": [
+        "Pyra the Dawnkeeper",
+        "Cindral the Unburnt",
+        "Emberion the Last Flame"
+      ],
+      "rare": [
+        "Kaelis",
+        "Dain",
+        "Ysolde",
+        "Rurik"
+      ]
+    },
+    "rarityFlavor": {
+      "common": "A steady warden of the hearth.",
+      "epic": "A legend the Frost itself fears.",
+      "rare": "A hero sung of in the warm halls."
+    },
+    "subtitle": "Recruit legendary wardens to lead your marches.",
+    "title": "Wardens of the Ember"
+  },
+  "displayName": "Emberfall",
+  "enemy": {
+    "bossName": "The Whiteout",
+    "defeatLine": "The cold takes its toll. Regroup by the hearth and try again.",
+    "description": "An endless winter crawling down from the Whiteout. Its packs den in the wilds, growing bolder every day.",
+    "name": "The Frost",
+    "nodeNames": [
+      "Frostbite Pack",
+      "Glacier Shard",
+      "Rime Howlers",
+      "Permafrost Den",
+      "Blizzard Revenant"
+    ],
+    "plural": "frost packs",
+    "victoryLine": "The Frost recoils. Warmth holds — for now.",
+    "fallbackNodeName": "Frostbite Pack"
+  },
+  "id": "emberfall",
+  "palette": {
+    "accent": "#7DD3FC",
+    "accentDeep": "#0C4A6E",
+    "background": "#14100C",
+    "danger": "#F87171",
+    "gold": "#FBBF24",
+    "primary": "#FF7A29",
+    "primaryDeep": "#C2410C",
+    "success": "#4ADE80",
+    "surface": "#1F1812",
+    "surface2": "#2A2018",
+    "text": "#F5EFE6",
+    "textDim": "#A8A29E"
+  },
+  "quests": {
+    "claim": "Claim",
+    "subtitle": "Small deeds, warm rewards. New quests kindle each dawn.",
+    "title": "Daily Hearth-Quests"
+  },
+  "relief": {
+    "body": "Scouts found a weaker pack nearby. An easier fight, if you want it.",
+    "title": "The Frost overreached"
+  },
+  "research": [
+    {
+      "description": "+10% wood, stone and gold production.",
+      "icon": "hammer.fill",
+      "key": "iron_tools",
+      "name": "Iron Tools"
+    },
+    {
+      "description": "+15% food production.",
+      "icon": "leaf.fill",
+      "key": "harvest",
+      "name": "Bountiful Harvest"
+    },
+    {
+      "description": "Buildings cost 10% fewer resources.",
+      "icon": "building.columns.fill",
+      "key": "masonry",
+      "name": "Ember Masonry"
+    },
+    {
+      "description": "+10% attack power in battle.",
+      "icon": "flag.fill",
+      "key": "war_drills",
+      "name": "War Drills"
+    },
+    {
+      "description": "Unlocks Tier 2 (Blazing) troops. Requires Academy 3.",
+      "icon": "flame.fill",
+      "key": "tier2_arms",
+      "name": "Blazing Arms"
+    },
+    {
+      "description": "Troops train 15% faster.",
+      "icon": "cross.fill",
+      "key": "medicine",
+      "name": "Field Medicine"
+    },
+    {
+      "description": "Unlocks Tier 3 (Inferno) troops. Requires Academy 5.",
+      "icon": "sparkles",
+      "key": "inferno_arms",
+      "name": "Inferno Arms"
+    },
+    {
+      "description": "Marches move 10% faster; see frost node strength from farther away.",
+      "icon": "eye.fill",
+      "key": "scouting",
+      "name": "Frostwatch"
+    }
+  ],
+  "shieldStub": "Shields arrive with PvP wars — phase 2. For now, the Frost is the only enemy, and it never raids your stores.",
+  "tagline": "Hold the last warm light against the Frost.",
+  "tiers": [
+    {
+      "name": "Kindled",
+      "tier": 1
+    },
+    {
+      "name": "Blazing",
+      "tier": 2
+    },
+    {
+      "name": "Inferno",
+      "tier": 3
+    }
+  ],
+  "troops": {
+    "archers": {
+      "description": "Longbow volleys of burning pitch. Strong against infantry.",
+      "icon": "arrow.up.right",
+      "name": "Sparkshot Archers"
+    },
+    "cavalry": {
+      "description": "Fast riders wreathed in cinders. Strong against archers.",
+      "icon": "flame.fill",
+      "name": "Ember Riders"
+    },
+    "infantry": {
+      "description": "Steady shield-bearers. Strong against cavalry.",
+      "icon": "shield.fill",
+      "name": "Ashguard"
+    },
+    "siege": {
+      "description": "Slow engines that hurl molten rock. Devastating to fortifications.",
+      "icon": "burst.fill",
+      "name": "Magma Trebuchets"
+    }
+  },
+  "tutorial": {
+    "complete": "The hearth is lit, Warden. Emberfall is yours to grow.",
+    "steps": [
+      {
+        "body": "Your people need food before they can fight. Tap the glowing tile and raise a farm — it's on the house.",
+        "title": "Raise a Sunfield Farm"
+      },
+      {
+        "body": "The Frost dens in the wilds beyond your walls. Train Ashguard, then march out and drive a pack back.",
+        "title": "Strike a frost pack"
+      },
+      {
+        "body": "Great armies need great leaders. Light the summoning pyre and welcome a Warden of the Ember.",
+        "title": "Recruit a Warden"
+      }
+    ],
+    "title": "Kindle your citadel"
+  },
+  "welcome": {
+    "subtitle": "A gift each day you return — no streaks to break, no punishment for missing one.",
+    "title": "Seven Dawns"
+  },
+  "cityName": "Emberhold"
+}

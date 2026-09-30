@@ -1,0 +1,280 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+		000000000000000000000001 /* EmberfallApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmberfallApp.swift; sourceTree = "<group>"; };
+		000000000000000000000002 /* Theme/ThemePack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme/ThemePack.swift; sourceTree = "<group>"; };
+		000000000000000000000003 /* Net/Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Net/Models.swift; sourceTree = "<group>"; };
+		000000000000000000000004 /* Net/KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Net/KeychainHelper.swift; sourceTree = "<group>"; };
+		000000000000000000000005 /* Net/APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Net/APIClient.swift; sourceTree = "<group>"; };
+		000000000000000000000006 /* Net/WSClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Net/WSClient.swift; sourceTree = "<group>"; };
+		000000000000000000000007 /* Net/LocalSim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Net/LocalSim.swift; sourceTree = "<group>"; };
+		000000000000000000000008 /* Game/GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game/GameState.swift; sourceTree = "<group>"; };
+		000000000000000000000009 /* Game/StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game/StoreManager.swift; sourceTree = "<group>"; };
+		00000000000000000000000A /* Game/AdsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game/AdsManager.swift; sourceTree = "<group>"; };
+		00000000000000000000000B /* Game/Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game/Haptics.swift; sourceTree = "<group>"; };
+		00000000000000000000000C /* Game/SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game/SoundManager.swift; sourceTree = "<group>"; };
+		00000000000000000000000D /* Game/CityScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game/CityScene.swift; sourceTree = "<group>"; };
+		00000000000000000000000E /* Views/UIHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/UIHelpers.swift; sourceTree = "<group>"; };
+		00000000000000000000000F /* Views/RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/RootView.swift; sourceTree = "<group>"; };
+		000000000000000000000010 /* Views/OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/OnboardingView.swift; sourceTree = "<group>"; };
+		000000000000000000000011 /* Views/CityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/CityView.swift; sourceTree = "<group>"; };
+		000000000000000000000012 /* Views/MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/MapView.swift; sourceTree = "<group>"; };
+		000000000000000000000013 /* Views/SummonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/SummonView.swift; sourceTree = "<group>"; };
+		000000000000000000000014 /* Views/QuestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/QuestsView.swift; sourceTree = "<group>"; };
+		000000000000000000000015 /* Views/SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/SettingsView.swift; sourceTree = "<group>"; };
+		000000000000000000000016 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		000000000000000000000017 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		000000000000000000000018 /* Theme/Themes/emberfall.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Theme/Themes/emberfall.json; sourceTree = "<group>"; };
+		000000000000000000000019 /* Config/offline_config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Config/offline_config.json; sourceTree = "<group>"; };
+		00000000000000000000001A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00000000000000000000001B /* Emberfall.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Emberfall.entitlements; sourceTree = "<group>"; };
+		00000000000000000000001C /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
+		00000000000000000000001D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		00000000000000000000001E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		00000000000000000000001F /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
+		000000000000000000000020 /* Emberfall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Emberfall.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		000000000000000000000021 /* EmberfallApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000001 /* EmberfallApp.swift */; };
+		000000000000000000000022 /* Theme/ThemePack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000002 /* Theme/ThemePack.swift */; };
+		000000000000000000000023 /* Net/Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000003 /* Net/Models.swift */; };
+		000000000000000000000024 /* Net/KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000004 /* Net/KeychainHelper.swift */; };
+		000000000000000000000025 /* Net/APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000005 /* Net/APIClient.swift */; };
+		000000000000000000000026 /* Net/WSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000006 /* Net/WSClient.swift */; };
+		000000000000000000000027 /* Net/LocalSim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000007 /* Net/LocalSim.swift */; };
+		000000000000000000000028 /* Game/GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000008 /* Game/GameState.swift */; };
+		000000000000000000000029 /* Game/StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000009 /* Game/StoreManager.swift */; };
+		00000000000000000000002A /* Game/AdsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000000A /* Game/AdsManager.swift */; };
+		00000000000000000000002B /* Game/Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000000B /* Game/Haptics.swift */; };
+		00000000000000000000002C /* Game/SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000000C /* Game/SoundManager.swift */; };
+		00000000000000000000002D /* Game/CityScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000000D /* Game/CityScene.swift */; };
+		00000000000000000000002E /* Views/UIHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000000E /* Views/UIHelpers.swift */; };
+		00000000000000000000002F /* Views/RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000000F /* Views/RootView.swift */; };
+		000000000000000000000030 /* Views/OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000010 /* Views/OnboardingView.swift */; };
+		000000000000000000000031 /* Views/CityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000011 /* Views/CityView.swift */; };
+		000000000000000000000032 /* Views/MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000012 /* Views/MapView.swift */; };
+		000000000000000000000033 /* Views/SummonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000013 /* Views/SummonView.swift */; };
+		000000000000000000000034 /* Views/QuestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000014 /* Views/QuestsView.swift */; };
+		000000000000000000000035 /* Views/SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000015 /* Views/SettingsView.swift */; };
+		000000000000000000000036 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000016 /* Assets.xcassets */; };
+		000000000000000000000037 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000017 /* PrivacyInfo.xcprivacy */; };
+		000000000000000000000038 /* Theme/Themes/emberfall.json in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000018 /* Theme/Themes/emberfall.json */; };
+		000000000000000000000039 /* Config/offline_config.json in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000019 /* Config/offline_config.json */; };
+		00000000000000000000003A /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00000000000000000000001C /* SpriteKit.framework */; };
+		00000000000000000000003B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00000000000000000000001D /* AVFoundation.framework */; };
+		00000000000000000000003C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00000000000000000000001E /* StoreKit.framework */; };
+		00000000000000000000003D /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00000000000000000000001F /* AuthenticationServices.framework */; };
+		00000000000000000000003E /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {isa = XCRemoteSwiftPackageReference; repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads"; requirement = {kind = upToNextMajorVersion; minimumVersion = 11.0.0; }; };
+		00000000000000000000003F /* GoogleMobileAds */ = {isa = XCSwiftPackageProductDependency; package = 00000000000000000000003E /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */; productName = GoogleMobileAds; };
+		000000000000000000000040 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (
+			000000000000000000000021 /* EmberfallApp.swift in Sources */,
+			000000000000000000000022 /* Theme/ThemePack.swift in Sources */,
+			000000000000000000000023 /* Net/Models.swift in Sources */,
+			000000000000000000000024 /* Net/KeychainHelper.swift in Sources */,
+			000000000000000000000025 /* Net/APIClient.swift in Sources */,
+			000000000000000000000026 /* Net/WSClient.swift in Sources */,
+			000000000000000000000027 /* Net/LocalSim.swift in Sources */,
+			000000000000000000000028 /* Game/GameState.swift in Sources */,
+			000000000000000000000029 /* Game/StoreManager.swift in Sources */,
+			00000000000000000000002A /* Game/AdsManager.swift in Sources */,
+			00000000000000000000002B /* Game/Haptics.swift in Sources */,
+			00000000000000000000002C /* Game/SoundManager.swift in Sources */,
+			00000000000000000000002D /* Game/CityScene.swift in Sources */,
+			00000000000000000000002E /* Views/UIHelpers.swift in Sources */,
+			00000000000000000000002F /* Views/RootView.swift in Sources */,
+			000000000000000000000030 /* Views/OnboardingView.swift in Sources */,
+			000000000000000000000031 /* Views/CityView.swift in Sources */,
+			000000000000000000000032 /* Views/MapView.swift in Sources */,
+			000000000000000000000033 /* Views/SummonView.swift in Sources */,
+			000000000000000000000034 /* Views/QuestsView.swift in Sources */,
+			000000000000000000000035 /* Views/SettingsView.swift in Sources */,
+		); runOnlyForDeploymentPostprocessing = 0; };
+		000000000000000000000041 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (
+			00000000000000000000003A /* SpriteKit.framework in Frameworks */,
+			00000000000000000000003B /* AVFoundation.framework in Frameworks */,
+			00000000000000000000003C /* StoreKit.framework in Frameworks */,
+			00000000000000000000003D /* AuthenticationServices.framework in Frameworks */,
+		); runOnlyForDeploymentPostprocessing = 0; };
+		000000000000000000000042 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (
+			000000000000000000000036 /* Assets.xcassets in Resources */,
+			000000000000000000000037 /* PrivacyInfo.xcprivacy in Resources */,
+			000000000000000000000038 /* Theme/Themes/emberfall.json in Resources */,
+			000000000000000000000039 /* Config/offline_config.json in Resources */,
+		); runOnlyForDeploymentPostprocessing = 0; };
+		000000000000000000000043 /* Themes */ = {isa = PBXGroup; children = (
+			000000000000000000000018,
+		); sourceTree = "<group>"; };
+		000000000000000000000044 /* Theme */ = {isa = PBXGroup; children = (
+			000000000000000000000002,
+			000000000000000000000043,
+		); sourceTree = "<group>"; };
+		000000000000000000000045 /* Config */ = {isa = PBXGroup; children = (
+			000000000000000000000019,
+		); sourceTree = "<group>"; };
+		000000000000000000000046 /* Net */ = {isa = PBXGroup; children = (
+			000000000000000000000003,
+			000000000000000000000004,
+			000000000000000000000005,
+			000000000000000000000006,
+			000000000000000000000007,
+		); sourceTree = "<group>"; };
+		000000000000000000000047 /* Game */ = {isa = PBXGroup; children = (
+			000000000000000000000008,
+			000000000000000000000009,
+			00000000000000000000000A,
+			00000000000000000000000B,
+			00000000000000000000000C,
+			00000000000000000000000D,
+		); sourceTree = "<group>"; };
+		000000000000000000000048 /* Views */ = {isa = PBXGroup; children = (
+			00000000000000000000000E,
+			00000000000000000000000F,
+			000000000000000000000010,
+			000000000000000000000011,
+			000000000000000000000012,
+			000000000000000000000013,
+			000000000000000000000014,
+			000000000000000000000015,
+		); sourceTree = "<group>"; };
+		000000000000000000000049 /* Emberfall */ = {isa = PBXGroup; children = (
+			000000000000000000000001,
+			00000000000000000000001A,
+			00000000000000000000001B,
+			000000000000000000000016,
+			000000000000000000000017,
+			000000000000000000000044,
+			000000000000000000000045,
+			000000000000000000000046,
+			000000000000000000000047,
+			000000000000000000000048,
+		); path = Emberfall; sourceTree = "<group>"; };
+		00000000000000000000004A /* Products */ = {isa = PBXGroup; children = (
+			000000000000000000000020,
+		); sourceTree = "<group>"; };
+		00000000000000000000004B = {isa = PBXGroup; children = (
+			000000000000000000000049,
+			00000000000000000000004A,
+		); sourceTree = "<group>"; };
+		00000000000000000000004C /* Emberfall */ = {isa = PBXNativeTarget; buildConfigurationList = 00000000000000000000004D /* Build configuration list for PBXNativeTarget "Emberfall" */; buildPhases = (
+			000000000000000000000040 /* Sources */,
+			000000000000000000000041 /* Frameworks */,
+			000000000000000000000042 /* Resources */,
+		); buildRules = (
+		); dependencies = (
+		); name = Emberfall;
+			packageProductDependencies = (
+				00000000000000000000003F /* GoogleMobileAds */,
+			);
+		productName = Emberfall; productReference = 000000000000000000000020 /* Emberfall.app */; productType = "com.apple.product-type.application"; };
+		00000000000000000000004E /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 00000000000000000000004F /* Build configuration list for PBXProject */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			packageReferences = (
+				00000000000000000000003E /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+			);
+			mainGroup = 00000000000000000000004B;
+			productRefGroup = 00000000000000000000004A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				00000000000000000000004C /* Emberfall */,
+			);
+		};
+		000000000000000000000050 /* project:Debug */ = {isa = XCBuildConfiguration; buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJ_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+			};
+		000000000000000000000051 /* project:Release */ = {isa = XCBuildConfiguration; buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJ_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				ENABLE_NS_ASSERTIONS = NO;
+			};
+			name = Release;
+			};
+		00000000000000000000004F /* Build configuration list for PBXProject */ = {isa = XCConfigurationList; buildConfigurations = (000000000000000000000050 /* Debug */, 000000000000000000000051 /* Release */); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		000000000000000000000052 /* target:Debug */ = {isa = XCBuildConfiguration; buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Emberfall/Emberfall.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = Emberfall/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.emberfall.game;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+			};
+		000000000000000000000053 /* target:Release */ = {isa = XCBuildConfiguration; buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Emberfall/Emberfall.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = Emberfall/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.emberfall.game;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+			};
+		00000000000000000000004D /* Build configuration list for PBXNativeTarget "Emberfall" */ = {isa = XCConfigurationList; buildConfigurations = (000000000000000000000052 /* Debug */, 000000000000000000000053 /* Release */); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+	};
+	rootObject = 00000000000000000000004E /* Project object */;
+}

@@ -1,0 +1,447 @@
+{
+  "buildings": {
+    "academy": {
+      "levels": [
+        {
+          "food": 0,
+          "gold": 200,
+          "seconds": 120,
+          "stone": 120,
+          "wood": 150
+        },
+        {
+          "food": 0,
+          "gold": 600,
+          "seconds": 600,
+          "stone": 400,
+          "wood": 500
+        },
+        {
+          "food": 0,
+          "gold": 1500,
+          "seconds": 1800,
+          "stone": 1000,
+          "wood": 1200
+        },
+        {
+          "food": 0,
+          "gold": 4000,
+          "seconds": 5400,
+          "stone": 2500,
+          "wood": 3000
+        },
+        {
+          "food": 0,
+          "gold": 9000,
+          "seconds": 14400,
+          "stone": 6000,
+          "wood": 7000
+        }
+      ]
+    },
+    "barracks": {
+      "levels": [
+        {
+          "food": 0,
+          "gold": 80,
+          "seconds": 60,
+          "stone": 60,
+          "wood": 80
+        },
+        {
+          "food": 0,
+          "gold": 250,
+          "seconds": 300,
+          "stone": 200,
+          "wood": 250
+        },
+        {
+          "food": 0,
+          "gold": 700,
+          "seconds": 900,
+          "stone": 500,
+          "wood": 650
+        },
+        {
+          "food": 0,
+          "gold": 1800,
+          "seconds": 2700,
+          "stone": 1200,
+          "wood": 1500
+        },
+        {
+          "food": 0,
+          "gold": 4200,
+          "seconds": 7200,
+          "stone": 3000,
+          "wood": 3500
+        }
+      ]
+    },
+    "citadel": {
+      "levels": [
+        {
+          "food": 0,
+          "gold": 100,
+          "seconds": 90,
+          "stone": 80,
+          "wood": 100
+        },
+        {
+          "food": 0,
+          "gold": 300,
+          "seconds": 300,
+          "stone": 250,
+          "wood": 300
+        },
+        {
+          "food": 0,
+          "gold": 900,
+          "seconds": 1200,
+          "stone": 700,
+          "wood": 850
+        },
+        {
+          "food": 0,
+          "gold": 2500,
+          "seconds": 3600,
+          "stone": 1800,
+          "wood": 2200
+        },
+        {
+          "food": 0,
+          "gold": 6000,
+          "seconds": 10800,
+          "stone": 4500,
+          "wood": 5500
+        }
+      ]
+    },
+    "farm": {
+      "levels": [
+        {
+          "food": 0,
+          "gold": 0,
+          "seconds": 20,
+          "stone": 20,
+          "wood": 40
+        },
+        {
+          "food": 0,
+          "gold": 20,
+          "seconds": 90,
+          "stone": 60,
+          "wood": 100
+        },
+        {
+          "food": 0,
+          "gold": 80,
+          "seconds": 300,
+          "stone": 160,
+          "wood": 260
+        },
+        {
+          "food": 0,
+          "gold": 250,
+          "seconds": 900,
+          "stone": 400,
+          "wood": 650
+        },
+        {
+          "food": 0,
+          "gold": 700,
+          "seconds": 2700,
+          "stone": 1000,
+          "wood": 1600
+        }
+      ]
+    },
+    "goldmint": {
+      "levels": [
+        {
+          "food": 0,
+          "gold": 0,
+          "seconds": 45,
+          "stone": 50,
+          "wood": 70
+        },
+        {
+          "food": 0,
+          "gold": 30,
+          "seconds": 180,
+          "stone": 120,
+          "wood": 170
+        },
+        {
+          "food": 0,
+          "gold": 120,
+          "seconds": 600,
+          "stone": 300,
+          "wood": 420
+        },
+        {
+          "food": 0,
+          "gold": 400,
+          "seconds": 1800,
+          "stone": 750,
+          "wood": 1050
+        },
+        {
+          "food": 0,
+          "gold": 1100,
+          "seconds": 5400,
+          "stone": 1900,
+          "wood": 2600
+        }
+      ]
+    },
+    "lumber": {
+      "levels": [
+        {
+          "food": 0,
+          "gold": 0,
+          "seconds": 20,
+          "stone": 20,
+          "wood": 40
+        },
+        {
+          "food": 0,
+          "gold": 20,
+          "seconds": 90,
+          "stone": 60,
+          "wood": 100
+        },
+        {
+          "food": 0,
+          "gold": 80,
+          "seconds": 300,
+          "stone": 160,
+          "wood": 260
+        },
+        {
+          "food": 0,
+          "gold": 250,
+          "seconds": 900,
+          "stone": 400,
+          "wood": 650
+        },
+        {
+          "food": 0,
+          "gold": 700,
+          "seconds": 2700,
+          "stone": 1000,
+          "wood": 1600
+        }
+      ]
+    },
+    "quarry": {
+      "levels": [
+        {
+          "food": 0,
+          "gold": 0,
+          "seconds": 20,
+          "stone": 20,
+          "wood": 40
+        },
+        {
+          "food": 0,
+          "gold": 20,
+          "seconds": 90,
+          "stone": 60,
+          "wood": 100
+        },
+        {
+          "food": 0,
+          "gold": 80,
+          "seconds": 300,
+          "stone": 160,
+          "wood": 260
+        },
+        {
+          "food": 0,
+          "gold": 250,
+          "seconds": 900,
+          "stone": 400,
+          "wood": 650
+        },
+        {
+          "food": 0,
+          "gold": 700,
+          "seconds": 2700,
+          "stone": 1000,
+          "wood": 1600
+        }
+      ]
+    },
+    "walls": {
+      "levels": [
+        {
+          "food": 0,
+          "gold": 60,
+          "seconds": 60,
+          "stone": 100,
+          "wood": 60
+        },
+        {
+          "food": 0,
+          "gold": 200,
+          "seconds": 300,
+          "stone": 280,
+          "wood": 180
+        },
+        {
+          "food": 0,
+          "gold": 600,
+          "seconds": 900,
+          "stone": 700,
+          "wood": 450
+        },
+        {
+          "food": 0,
+          "gold": 1600,
+          "seconds": 2700,
+          "stone": 1700,
+          "wood": 1100
+        },
+        {
+          "food": 0,
+          "gold": 4000,
+          "seconds": 7200,
+          "stone": 4200,
+          "wood": 2700
+        }
+      ]
+    }
+  },
+  "production": {
+    "baseCap": 1000,
+    "baseRatePerSec": {
+      "food": 0.35,
+      "gold": 0.08,
+      "stone": 0.3,
+      "wood": 0.3
+    },
+    "capPerLevel": 800,
+    "ratePerLevel": 0.22
+  },
+  "researchCosts": {
+    "harvest": {
+      "food": 200,
+      "gold": 150,
+      "seconds": 600,
+      "stone": 150,
+      "wood": 150
+    },
+    "inferno_arms": {
+      "food": 2000,
+      "gold": 5000,
+      "seconds": 14400,
+      "stone": 3000,
+      "wood": 3000
+    },
+    "iron_tools": {
+      "food": 150,
+      "gold": 100,
+      "seconds": 300,
+      "stone": 100,
+      "wood": 100
+    },
+    "masonry": {
+      "food": 300,
+      "gold": 300,
+      "seconds": 1200,
+      "stone": 250,
+      "wood": 250
+    },
+    "medicine": {
+      "food": 1500,
+      "gold": 2500,
+      "seconds": 7200,
+      "stone": 1200,
+      "wood": 1200
+    },
+    "scouting": {
+      "food": 400,
+      "gold": 500,
+      "seconds": 1800,
+      "stone": 400,
+      "wood": 400
+    },
+    "tier2_arms": {
+      "food": 800,
+      "gold": 1200,
+      "seconds": 3600,
+      "stone": 700,
+      "wood": 700
+    },
+    "war_drills": {
+      "food": 500,
+      "gold": 600,
+      "seconds": 2400,
+      "stone": 400,
+      "wood": 400
+    }
+  },
+  "starter": {
+    "gold": 400,
+    "stone": 400,
+    "troops": {
+      "archers": 0,
+      "cavalry": 0,
+      "infantry": 10,
+      "siege": 0
+    },
+    "wood": 400,
+    "food": 400
+  },
+  "summon": {
+    "pityEpic": 30,
+    "rates": {
+      "common": 0.7,
+      "epic": 0.05,
+      "rare": 0.25
+    }
+  },
+  "troops": {
+    "archers": {
+      "basePower": 12,
+      "carry": 15,
+      "cost": {
+        "food": 30,
+        "gold": 8
+      },
+      "secondsPerUnit": 45,
+      "speedTilesPerMin": 5
+    },
+    "cavalry": {
+      "basePower": 14,
+      "carry": 25,
+      "cost": {
+        "food": 40,
+        "gold": 10
+      },
+      "secondsPerUnit": 60,
+      "speedTilesPerMin": 9
+    },
+    "infantry": {
+      "basePower": 10,
+      "carry": 20,
+      "cost": {
+        "food": 20,
+        "gold": 5
+      },
+      "secondsPerUnit": 30,
+      "speedTilesPerMin": 6
+    },
+    "siege": {
+      "basePower": 30,
+      "carry": 5,
+      "cost": {
+        "food": 80,
+        "gold": 30
+      },
+      "secondsPerUnit": 180,
+      "speedTilesPerMin": 3
+    }
+  }
+}
