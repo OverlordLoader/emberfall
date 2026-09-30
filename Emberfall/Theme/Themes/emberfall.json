@@ -1,7 +1,7 @@
 {
   "away": {
     "body": "Your mills kept turning and your fields kept growing.",
-    "title": "While you were away…"
+    "title": "While you were away\u2026"
   },
   "buildings": [
     {
@@ -105,7 +105,7 @@
       "Blizzard Revenant"
     ],
     "plural": "frost packs",
-    "victoryLine": "The Frost recoils. Warmth holds — for now.",
+    "victoryLine": "The Frost recoils. Warmth holds \u2014 for now.",
     "fallbackNodeName": "Frostbite Pack"
   },
   "id": "emberfall",
@@ -182,7 +182,7 @@
       "name": "Frostwatch"
     }
   ],
-  "shieldStub": "Shields arrive with PvP wars — phase 2. For now, the Frost is the only enemy, and it never raids your stores.",
+  "shieldStub": "Shields arrive with PvP wars \u2014 phase 2. For now, the Frost is the only enemy, and it never raids your stores.",
   "tagline": "Hold the last warm light against the Frost.",
   "tiers": [
     {
@@ -224,7 +224,7 @@
     "complete": "The hearth is lit, Warden. Emberfall is yours to grow.",
     "steps": [
       {
-        "body": "Your people need food before they can fight. Tap the glowing tile and raise a farm — it's on the house.",
+        "body": "Your people need food before they can fight. Tap the glowing tile and raise a farm \u2014 it's on the house.",
         "title": "Raise a Sunfield Farm"
       },
       {
@@ -239,8 +239,79 @@
     "title": "Kindle your citadel"
   },
   "welcome": {
-    "subtitle": "A gift each day you return — no streaks to break, no punishment for missing one.",
+    "subtitle": "A gift each day you return \u2014 no streaks to break, no punishment for missing one.",
     "title": "Seven Dawns"
   },
-  "cityName": "Emberhold"
+  "cityName": "Emberhold",
+  "art": {
+    "buildings": {
+      "citadel": {
+        "sprite": "emberfall_building_citadel",
+        "stages": 3
+      },
+      "farm": {
+        "sprite": "emberfall_building_farm",
+        "stages": 3
+      },
+      "lumber": {
+        "sprite": "emberfall_building_lumber",
+        "stages": 3
+      },
+      "quarry": {
+        "sprite": "emberfall_building_quarry",
+        "stages": 3
+      },
+      "goldmint": {
+        "sprite": "emberfall_building_goldmint",
+        "stages": 3
+      },
+      "barracks": {
+        "sprite": "emberfall_building_barracks",
+        "stages": 3
+      },
+      "academy": {
+        "sprite": "emberfall_building_academy",
+        "stages": 3
+      },
+      "walls": {
+        "sprite": "emberfall_building_walls",
+        "stages": 3
+      }
+    },
+    "resources": {
+      "wood": "emberfall_icon_wood",
+      "stone": "emberfall_icon_stone",
+      "food": "emberfall_icon_food",
+      "gold": "emberfall_icon_gold",
+      "power": "emberfall_icon_power"
+    },
+    "terrain": {
+      "city": "emberfall_terrain_city",
+      "cityAlt": "emberfall_terrain_city_alt",
+      "wildsSnow": "emberfall_terrain_wilds_snow",
+      "wildsIce": "emberfall_terrain_wilds_ice"
+    },
+    "ui": {
+      "buttonBuild": "emberfall_ui_button_build",
+      "buttonTrain": "emberfall_ui_button_train",
+      "buttonMarch": "emberfall_ui_button_march",
+      "buttonShop": "emberfall_ui_button_shop",
+      "badgeShield": "emberfall_ui_badge_shield",
+      "pillGold": "emberfall_ui_pill_gold",
+      "pillWood": "emberfall_ui_pill_wood",
+      "pillGem": "emberfall_ui_pill_gem",
+      "frameCommon": "emberfall_ui_frame_common",
+      "frameRare": "emberfall_ui_frame_rare",
+      "frameEpic": "emberfall_ui_frame_epic"
+    },
+    "onboarding": {
+      "farm": "emberfall_onboarding_farm",
+      "march": "emberfall_onboarding_march",
+      "summon": "emberfall_onboarding_summon",
+      "welcome": "emberfall_onboarding_welcome"
+    },
+    "troops": {},
+    "enemies": {},
+    "commanders": {}
+  }
 }

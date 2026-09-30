@@ -79,6 +79,24 @@ struct ThemePack: Decodable {
         let title: String
         let body: String
     }
+    /// Art indirection (brief §8): every sprite the game draws is named here,
+    /// never hardcoded in logic. New theme = new JSON + asset-catalog folder +
+    /// bundle ID. `troops`/`enemies`/`commanders` are empty until the v2
+    /// character art lands — code falls back to the current glyph path.
+    struct ArtDef: Decodable {
+        struct BuildingArt: Decodable {
+            let sprite: String   // asset-catalog base name; stage suffix _s1.._sN appended
+            let stages: Int
+        }
+        let buildings: [String: BuildingArt]?
+        let resources: [String: String]?
+        let terrain: [String: String]?
+        let ui: [String: String]?
+        let onboarding: [String: String]?
+        let troops: [String: [String: String]]?
+        let enemies: [String: String]?
+        let commanders: [String: String]?
+    }
 
     let id: String
     let displayName: String
@@ -97,6 +115,7 @@ struct ThemePack: Decodable {
     let away: AwayDef
     let relief: ReliefDef
     let shieldStub: String
+    let art: ArtDef?
 
     // MARK: - Loading
 
@@ -140,6 +159,33 @@ struct ThemePack: Decodable {
     func commanderPool(rarity: CommanderRarity) -> [String] {
         commanders.pools[rarity.rawValue] ?? []
     }
+
+    // MARK: - Art accessors (brief §8)
+
+    /// Buildings top out at level 5 (see the build sheet cap). Visual stages
+    /// map proportionally across levels so players *see* power grow — the
+    /// CoC town-hall progression hook. Returns nil when the theme has no art
+    /// for this building (caller renders the flat fallback style).
+    static let maxBuildingLevel = 5
+
+    func buildingSprite(_ key: BuildingKey, level: Int) -> String? {
+        guard let b = art?.buildings?[key.rawValue], b.stages > 0, level > 0 else { return nil }
+        let stage = min(b.stages, max(1, 1 + (level - 1) * b.stages / Self.maxBuildingLevel))
+        return "\(b.sprite)_s\(stage)"
+    }
+
+    func resourceIcon(_ kind: ResourceKind) -> String? { art?.resources?[kind.rawValue] }
+    func powerIcon() -> String? { art?.resources?["power"] }
+    func terrain(_ key: String) -> String? { art?.terrain?[key] }
+    func uiArt(_ key: String) -> String? { art?.ui?[key] }
+    func onboardingArt(_ key: String) -> String? { art?.onboarding?[key] }
+
+    // Character hooks — nil today (v2 art pending); callers keep the glyph path.
+    func troopSprite(type: TroopType, tier: Int) -> String? {
+        art?.troops?[type.rawValue]?[String(tier)]
+    }
+    func enemySprite(name: String) -> String? { art?.enemies?[name] }
+    func commanderPortrait(name: String) -> String? { art?.commanders?[name] }
 
     func color(_ keyPath: KeyPath<Palette, String>) -> Color {
         Color(hex: palette[keyPath: keyPath])

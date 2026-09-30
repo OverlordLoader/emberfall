@@ -2,6 +2,19 @@ import SwiftUI
 
 // MARK: - Shared UI helpers (all theme-driven)
 
+/// Image from the theme's asset catalog, falling back to an SF Symbol when
+/// the theme has no art for it (never blank, never a crash).
+func themedImage(_ assetName: String?, systemFallback: String, size: CGFloat = 14) -> some View {
+    Group {
+        if let name = assetName, UIImage(named: name) != nil {
+            Image(name).resizable().scaledToFit()
+        } else {
+            Image(systemName: systemFallback)
+        }
+    }
+    .frame(width: size, height: size)
+}
+
 struct ResourceBar: View {
     @ObservedObject var game: GameState
     var body: some View {
@@ -11,9 +24,7 @@ struct ResourceBar: View {
                 if let r = game.snapshot?.resources[kind] {
                     VStack(spacing: 1) {
                         HStack(spacing: 3) {
-                            Image(systemName: kind.icon)
-                                .font(.caption2)
-                                .foregroundColor(theme.gold)
+                            themedImage(theme.resourceIcon(kind), systemFallback: kind.icon)
                             Text(short(r.interpolated))
                                 .font(.caption2).bold()
                                 .foregroundColor(theme.text)
@@ -26,7 +37,7 @@ struct ResourceBar: View {
                 }
             }
             HStack(spacing: 3) {
-                Image(systemName: "bolt.fill").font(.caption2).foregroundColor(theme.primary)
+                themedImage(theme.powerIcon(), systemFallback: "bolt.fill")
                 Text("\(game.snapshot?.power ?? 0)")
                     .font(.caption2).bold().foregroundColor(theme.text)
             }
@@ -77,7 +88,7 @@ struct CostLine: View {
             ForEach([("wood", cost.wood), ("stone", cost.stone), ("food", cost.food), ("gold", cost.gold)], id: \.0) { k, v in
                 if v > 0, let kind = ResourceKind(rawValue: k) {
                     HStack(spacing: 2) {
-                        Image(systemName: kind.icon).font(.caption2)
+                        themedImage(theme.resourceIcon(kind), systemFallback: kind.icon, size: 12)
                         Text("\(v)").font(.caption2)
                     }.foregroundColor(theme.textDim)
                 }

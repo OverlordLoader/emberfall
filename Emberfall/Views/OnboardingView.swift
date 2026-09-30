@@ -12,9 +12,7 @@ struct OnboardingView: View {
             theme.background.opacity(0.97).ignoresSafeArea()
             VStack(spacing: 20) {
                 Spacer()
-                Image(systemName: "flame.fill")
-                    .font(.system(size: 64))
-                    .foregroundColor(theme.primary)
+                stepArt(theme)
                 Text(theme.tutorial.title)
                     .font(.largeTitle).bold()
                     .foregroundColor(theme.text)
@@ -47,6 +45,25 @@ struct OnboardingView: View {
                 .padding(.horizontal, 32)
                 .padding(.bottom, 40)
             }
+        }
+    }
+
+    /// Illustration for the current tutorial step (farm → march → summon),
+    /// from the theme's art. Falls back to the flame glyph.
+    @ViewBuilder
+    private func stepArt(_ theme: ThemePack) -> some View {
+        let keys = ["farm", "march", "summon"]
+        let key = step < keys.count ? keys[step] : "welcome"
+        if let name = theme.onboardingArt(key), UIImage(named: name) != nil {
+            Image(name)
+                .resizable()
+                .scaledToFit()
+                .frame(height: 190)
+                .cornerRadius(18)
+        } else {
+            Image(systemName: "flame.fill")
+                .font(.system(size: 64))
+                .foregroundColor(theme.primary)
         }
     }
 }

@@ -69,8 +69,10 @@ struct MapView: View {
                 if isCity {
                     Image(systemName: "crown.fill").font(.system(size: cell * 0.55)).foregroundColor(.white)
                 } else if node != nil {
-                    Image(systemName: "snowflake")
-                        .font(.system(size: cell * 0.55))
+                    // Enemy hook: v2 art drops in via theme art names; today
+                    // the snowflake glyph fallback renders.
+                    themedImage(theme.enemySprite(node?.name ?? ""),
+                                systemFallback: "snowflake", size: max(cell * 0.55, 4))
                         .foregroundColor((node?.level ?? 1) >= 3 ? theme.accent : theme.textDim)
                 }
             }
@@ -136,7 +138,7 @@ struct MarchSheet: View {
         let theme = ThemePack.active
         NavigationStack {
             VStack(spacing: 12) {
-                Image(systemName: "snowflake").font(.largeTitle).foregroundColor(theme.accent)
+                themedImage(theme.enemySprite(node.name), systemFallback: "snowflake", size: 44)
                 Text(node.name).font(.title3).bold().foregroundColor(theme.text)
                 Text("Level \(node.level) \(theme.enemy.plural.singularized()) den")
                     .font(.caption).foregroundColor(theme.textDim)
@@ -162,7 +164,9 @@ struct MarchSheet: View {
                     let def = theme.troop(type)
                     let have = game.snapshot?.troops[tier]?[type] ?? 0
                     HStack {
-                        Image(systemName: def.icon).foregroundColor(theme.primary).frame(width: 28)
+                        // Troop hook: v2 art drops in via theme art names.
+                        themedImage(theme.troopSprite(type: type, tier: tier),
+                                    systemFallback: def.icon, size: 28)
                         VStack(alignment: .leading) {
                             Text(def.name).foregroundColor(theme.text)
                             Text("Have \(have)").font(.caption).foregroundColor(theme.textDim)

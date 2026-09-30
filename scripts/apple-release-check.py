@@ -154,6 +154,29 @@ def main():
         check(collected == [],
               "no collected data types declared (ad-free, no advertising SDK)")
 
+    # Theme art integrity: every sprite named in the theme's art section
+    # exists as an imageset in the theme's asset-catalog folder. Missing art
+    # must fail loudly here — never as a blank in the game.
+    art = theme.get("art", {}) if 'theme' in dir() else {}
+    if theme_path.exists():
+        art = json.loads(theme_path.read_text()).get("art", {})
+        catalog = ROOT / "Emberfall" / "Assets.xcassets" / "Emberfall"
+        expected = []
+        for key, b in (art.get("buildings") or {}).items():
+            for s in range(1, (b.get("stages") or 0) + 1):
+                expected.append(f"{b['sprite']}_s{s}")
+        for section in ["resources", "terrain", "ui", "onboarding"]:
+            expected += list((art.get(section) or {}).values())
+        for ttype, tiers in (art.get("troops") or {}).items():
+            expected += list(tiers.values())
+        expected += list((art.get("enemies") or {}).values())
+        expected += list((art.get("commanders") or {}).values())
+        missing_art = [n for n in expected
+                       if not (catalog / f"{n}.imageset").is_dir()]
+        check(expected != [], f"theme art section names {len(expected)} assets")
+        check(not missing_art,
+              f"all theme art assets exist in catalog ({len(missing_art)} missing)")
+
     print()
     if failures:
         print(f"{len(failures)} check(s) FAILED")

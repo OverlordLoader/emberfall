@@ -94,8 +94,12 @@ struct SummonView: View {
             }
             ForEach(game.commanders) { c in
                 HStack {
-                    Image(systemName: c.rarity == "epic" ? "crown.fill" : c.rarity == "rare" ? "medal.fill" : "shield.fill")
-                        .foregroundColor(c.rarity == "epic" ? theme.gold : c.rarity == "rare" ? theme.accent : theme.textDim)
+                    // Portrait hook: v2 character art drops in via theme art
+                    // names; today this renders the rarity glyph fallback.
+                    themedImage(theme.commanderPortrait(c.key),
+                                systemFallback: c.rarity == "epic" ? "crown.fill" : c.rarity == "rare" ? "medal.fill" : "shield.fill",
+                                size: 28)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
                     VStack(alignment: .leading) {
                         Text(c.key).foregroundColor(theme.text)
                         Text((theme.commanders.rarityFlavor[c.rarity] ?? "").capitalized + " • Lv \(c.level)")
@@ -122,8 +126,10 @@ struct SummonResultsView: View {
             List {
                 ForEach(results) { c in
                     HStack {
-                        Image(systemName: c.rarity == "epic" ? "crown.fill" : "sparkles")
-                            .foregroundColor(c.rarity == "epic" ? theme.gold : theme.primary)
+                        themedImage(theme.commanderPortrait(c.key),
+                                    systemFallback: c.rarity == "epic" ? "crown.fill" : "sparkles",
+                                    size: 28)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
                         Text(c.key).font(.headline).foregroundColor(theme.text)
                         Spacer()
                         Text(c.rarity.capitalized).font(.caption)

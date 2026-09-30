@@ -75,7 +75,7 @@ Free-to-play speedup economy (no ads): daily quests grant speedups, the 7-day we
 
 1. Copy `Emberfall/Theme/Themes/emberfall.json` → `Emberfall/Theme/Themes/<newid>.json`.
 2. Rewrite: `id`, `displayName`, `tagline`, `cityName`, full `palette`, all 8 `buildings` (keep the 8 **keys**: `citadel farm lumber quarry goldmint barracks academy walls`), `troops` (keep the 4 keys), `tiers`, `research` (keep the keys), `enemy` (identity, node names, victory/defeat lines), `commanders` pools, and all copy blocks (`tutorial`, `quests`, `welcome`, `away`, `relief`, `shieldStub`).
-3. Add art if the variant needs it (icons are SF Symbols by name today).
+3. Add art: name every sprite in the new JSON's `art` section and ship the PNGs as `.imageset`s under `Emberfall/Assets.xcassets/<newid>/` (buildings need `stages` variants named `<base>_s1.._sN`; resources/terrain/ui/onboarding are single assets; troops/enemies/commanders slots can stay empty to keep the glyph fallback). The release check fails the build if a named asset is missing.
 4. New Xcode target / flavor with a new bundle ID and Info.plist `EmberThemeID = <newid>`.
 5. Game logic stays untouched — `ThemePack.load` picks the pack by `EmberThemeID` at launch.
 
