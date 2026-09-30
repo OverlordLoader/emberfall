@@ -96,7 +96,7 @@ struct SummonView: View {
                 HStack {
                     // Portrait hook: v2 character art drops in via theme art
                     // names; today this renders the rarity glyph fallback.
-                    themedImage(theme.commanderPortrait(c.key),
+                    themedImage(theme.commanderPortrait(name: c.key),
                                 systemFallback: c.rarity == "epic" ? "crown.fill" : c.rarity == "rare" ? "medal.fill" : "shield.fill",
                                 size: 28)
                         .clipShape(RoundedRectangle(cornerRadius: 8))
@@ -126,7 +126,7 @@ struct SummonResultsView: View {
             List {
                 ForEach(results) { c in
                     HStack {
-                        themedImage(theme.commanderPortrait(c.key),
+                        themedImage(theme.commanderPortrait(name: c.key),
                                     systemFallback: c.rarity == "epic" ? "crown.fill" : "sparkles",
                                     size: 28)
                             .clipShape(RoundedRectangle(cornerRadius: 8))

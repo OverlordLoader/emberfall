@@ -1,3 +1,7 @@
+## 2026-09-30 - Correct theme helper argument labels
+
+After duplicate-helper and WebSocket construction fixes compiled, native compilation reached four enemy/commander image lookups missing the existing name: argument label. Corrected those call sites without changing the theme keys or artwork.
+
 ## 2026-09-30 - Repair duplicate helper and WebSocket construction
 
 Keep the single safe Array subscript in Net/Models.swift and remove its duplicate UI declaration. GameState, already a singleton, owns one WSClient instance rather than referring to a nonexistent shared property. Checkout remains disabled.
