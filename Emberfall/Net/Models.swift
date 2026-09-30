@@ -12,7 +12,7 @@ enum EmberJSON {
         d.dateDecodingStrategy = .custom { decoder in
             let container = try decoder.singleValueContainer()
             let s = try container.decode(String.self)
-            if let date = ISO8601.loose.date(from: s) { return date }
+            if let date = ISO8601.parse(s) { return date }
             throw DecodingError.dataCorruptedError(
                 in: container, debugDescription: "Invalid ISO-8601 date: \(s)")
         }
@@ -39,11 +39,11 @@ enum ISO8601 {
         f.formatOptions = [.withInternetDateTime]
         return f
     }()
-}
 
-extension ISO8601DateFormatter {
-    func date(from string: String) -> Date? {
-        ISO8601.loose.date(from: string) ?? ISO8601.plain.date(from: string)
+    /// NOTE: intentionally not an extension on ISO8601DateFormatter —
+    /// redeclaring `date(from:)` there would collide with Foundation.
+    static func parse(_ string: String) -> Date? {
+        loose.date(from: string) ?? plain.date(from: string)
     }
 }
 
@@ -208,7 +208,9 @@ struct TroopCounts: Codable {
 }
 
 struct CityDetail: Codable {
-    let id: String
+    /// The contract doesn't explicitly promise `id`; the client passes the
+    /// requested id in when the server omits it.
+    var id: String?
     let name: String?
     var resources: [String: CityResource]
     var buildings: [BuildingState]

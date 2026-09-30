@@ -133,6 +133,7 @@ final class GameState: ObservableObject {
 
     func refreshOnline() async {
         guard mode == .online, let cityId else { return }
+        let cid = cityId
         isBusy = true
         defer { isBusy = false }
         do {
@@ -143,7 +144,8 @@ final class GameState: ObservableObject {
             async let qs = api.quests()
             async let wel = api.welcome()
             async let inv = api.inventory()
-            let (c, m, r, cm, q, w, iv) = try await (city, ms, reps, cmds, qs, wel, inv)
+            var (c, m, r, cm, q, w, iv) = try await (city, ms, reps, cmds, qs, wel, inv)
+            if c.id == nil { c.id = cid }
             applyCity(c)
             marches = m.map(marchView(from:))
             reports = r
@@ -194,7 +196,8 @@ final class GameState: ObservableObject {
         }
         snapshot = CitySnapshot(resources: res, buildings: buildings, troops: troops,
                                 power: c.power, buildQueues: [], trainQueues: [],
-                                research: [], cityId: c.id, cityName: c.name ?? "City")
+                                research: [], cityId: c.id ?? "",
+                                cityName: c.name ?? ThemePack.active.cityName)
     }
 
     private func marchView(from m: March) -> MarchView {
@@ -214,7 +217,10 @@ final class GameState: ObservableObject {
     private func handleServerEvent(_ event: ServerEvent) {
         switch event.type {
         case "city_delta":
-            if let city: CityDetail = event.decode() { applyCity(city) }
+            if var city: CityDetail = event.decode() {
+                if city.id == nil { city.id = cityId }
+                applyCity(city)
+            }
         case "march_update", "march_resolved":
             Task { await refreshOnline() }
         case "battle_report":
