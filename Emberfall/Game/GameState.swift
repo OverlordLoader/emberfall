@@ -263,26 +263,20 @@ final class GameState: ObservableObject {
         catch { lastError = (error as? APIError)?.errorDescription ?? error.localizedDescription }
     }
 
-    /// Speedup: prefers an inventory item, else a rewarded ad grants one.
-    func speedup(queueId: String, viaAd: Bool = false) async {
+    /// Speedup: consumes a 15-min inventory speedup. Free speedups are earned
+    /// from daily quests and the 7-day welcome track — the game is ad-free.
+    func speedup(queueId: String) async {
         if mode == .offline {
-            if viaAd {
-                _ = local.speedup(queueId: queueId)
-            } else if !local.useSpeedupItem(queueId: queueId) {
-                lastError = "No speedups left — watch an ad for a free one."
+            if !local.useSpeedupItem(queueId: queueId) {
+                lastError = "No speedups left — earn more from daily quests and the welcome track."
             }
             refreshLocal()
             return
         }
         do {
-            if !viaAd {
-                try await api.speedup(queueId: queueId, itemKey: "speedup_15m",
-                                      transactionId: store.lastTransactionId)
-                store.lastTransactionId = nil
-            } else {
-                _ = try await api.speedup(queueId: queueId, transactionId: store.lastTransactionId)
-                store.lastTransactionId = nil
-            }
+            try await api.speedup(queueId: queueId, itemKey: "speedup_15m",
+                                  transactionId: store.lastTransactionId)
+            store.lastTransactionId = nil
             await refreshOnline()
         } catch { lastError = (error as? APIError)?.errorDescription ?? error.localizedDescription }
     }
@@ -386,6 +380,10 @@ final class GameState: ObservableObject {
                 local.addSpeedups(3)
             case StoreManager.summonEpic10ID:
                 pendingSummonResults = local.summon(count: 10)
+            case StoreManager.wardenBundleID:
+                // Warden's Cache: large speedup bundle + 3 guaranteed epic summons.
+                local.addSpeedups(8)
+                pendingSummonResults = local.summonEpics(count: 3)
             default: break
             }
             refreshLocal()

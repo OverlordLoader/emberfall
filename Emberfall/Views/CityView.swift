@@ -66,28 +66,11 @@ struct CityView: View {
             if let snap = game.snapshot {
                 ForEach(snap.buildQueues + snap.trainQueues) { q in
                     QueueRow(queue: q, onSpeedup: {
-                        Task { await speedupSheet(queue: q) }
+                        // Speedups are earned free from quests and the welcome track.
+                        Task { await game.speedup(queueId: q.id) }
                     }, onCancel: q.kind == "build" ? {
                         Task { await game.cancelBuild(queueId: q.id) }
                     } : nil)
-                }
-            }
-        }
-    }
-
-    private func speedupSheet(queue: QueueView) async {
-        // Prefer a free inventory speedup; otherwise offer a rewarded ad.
-        let hasItem = game.inventory.contains { $0.itemKey.hasPrefix("speedup") && $0.qty > 0 }
-        if hasItem {
-            await game.speedup(queueId: queue.id)
-        } else {
-            AdsManager.shared.showRewardedForSpeedup { earned in
-                if earned {
-                    Task {
-                        await game.speedup(queueId: queue.id, viaAd: true)
-                        Haptics.success()
-                        SoundManager.shared.play(.coin)
-                    }
                 }
             }
         }

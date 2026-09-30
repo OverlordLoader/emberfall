@@ -28,10 +28,6 @@ struct RootView: View {
                 }.tag(4)
             }
             .tint(theme.primary)
-            .onChange(of: tab) { old, new in
-                // Interstitial ONLY on the non-gameplay Settings -> city hop.
-                if old == 4 { AdsManager.shared.showInterstitialIfDue() }
-            }
 
             if !game.onboardingDone {
                 OnboardingView()

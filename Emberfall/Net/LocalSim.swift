@@ -640,6 +640,25 @@ final class LocalSim: ObservableObject {
 
     // MARK: - Quests / welcome
 
+    /// Grants guaranteed-epic commanders (e.g. the Warden's Cache bundle).
+    /// Follows the summon convention: pity resets on every epic pull.
+    func summonEpics(count: Int) -> [Commander] {
+        let theme = ThemePack.active
+        var out: [Commander] = []
+        for _ in 0..<count {
+            let pool = theme.commanderPool(rarity: .epic)
+            let name = pool.randomElement() ?? "Warden"
+            let c = Commander(id: UUID().uuidString, key: name, level: 1, xp: 0,
+                              stars: 5, rarity: CommanderRarity.epic.rawValue)
+            state.commanders.append(c)
+            out.append(c)
+            state.pity = config.summon.pityEpic
+        }
+        bumpQuest("summon")
+        save(); objectWillChange.send()
+        return out
+    }
+
     static func dailyQuests() -> [String] { ["build", "train", "battle", "summon", "speedup", "research"] }
 
     static func dayString(_ d: Date) -> String {

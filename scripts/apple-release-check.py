@@ -27,10 +27,10 @@ EXPECTED_DISPLAY_NAME = "Emberfall Kingdom"
 MIN_DEPLOYMENT = (17, 0)
 
 # Third-party SDKs that would violate the zero-data-collection promise.
-# NOTE: GoogleMobileAds is intentionally NOT banned — it is the app's ad
-# network (rewarded speedups + sparse interstitials), wired via SPM. No other
-# analytics/tracking SDKs are allowed.
+# Emberfall Kingdom is fully AD-FREE: no advertising SDK is allowed at all.
+# (GoogleMobileAds is banned — the game ships with zero ads.)
 BANNED_IMPORTS = [
+    "GoogleMobileAds",
     "Firebase",
     "AppTrackingTransparency",
     "AdSupport",
@@ -38,11 +38,6 @@ BANNED_IMPORTS = [
     "Amplitude",
     "Mixpanel",
 ]
-
-# AdMob test IDs that must never ship in a Release build. The check below
-# only verifies presence of the app ID key; replacing test IDs with real
-# ones is a documented manual step in README ("Monetization setup").
-ADMOB_TEST_APP_ID = "ca-app-pub-3940256099942544~3347511713"
 
 failures = []
 
@@ -66,9 +61,8 @@ def main():
         orientations = info.get("UISupportedInterfaceOrientations", [])
         check(orientations == ["UIInterfaceOrientationPortrait"],
               "portrait-only orientations declared")
-        check(info.get("GADApplicationIdentifier") == ADMOB_TEST_APP_ID,
-              "GADApplicationIdentifier present (AdMob test ID — Henry must "
-              "replace with the real AdMob App ID before release; see README)")
+        check(info.get("GADApplicationIdentifier") is None,
+              "no GADApplicationIdentifier (ad-free game — no AdMob)")
 
     pbx = ROOT / "Emberfall.xcodeproj" / "project.pbxproj"
     check(pbx.exists(), "Emberfall.xcodeproj/project.pbxproj exists")
@@ -126,14 +120,30 @@ def main():
     for needle in ["subscribe_map", "chat_send", "ping", "battle_report", "march_update"]:
         check(needle in ws, f"WSClient covers '{needle}'")
 
-    # IAP product IDs match the documented contract.
+    # IAP product IDs match the documented contract (ad-free: no removeads).
     store = (ROOT / "Emberfall" / "Game" / "StoreManager.swift").read_text()
-    for pid in ["app.emberfall.game.removeads",
-                "app.emberfall.game.bundle.speedup",
-                "app.emberfall.game.summon.epic10"]:
+    for pid in ["app.emberfall.game.bundle.speedup",
+                "app.emberfall.game.summon.epic10",
+                "app.emberfall.game.bundle.warden"]:
         check(pid in store, f"StoreManager declares '{pid}'")
+    check("app.emberfall.game.removeads" not in store,
+          "no removeads product (ad-free game)")
 
-    # Privacy manifest: Device ID for advertising only, tracking=false.
+    # Ad-free hardening: the ads system must be fully gone.
+    check(not (ROOT / "Emberfall" / "Game" / "AdsManager.swift").exists(),
+          "AdsManager.swift deleted")
+    ad_hits = []
+    for f in swift_files:
+        for i, line in enumerate(f.read_text().splitlines(), 1):
+            if re.search(r"GoogleMobileAds|AdsManager|showRewarded|Interstitial|rewardedAd",
+                         line, re.IGNORECASE):
+                ad_hits.append(f"{f.name}:{i}")
+    check(not ad_hits, f"no ad-system references in Swift ({len(ad_hits)} hits)")
+    pbx_text = (ROOT / "Emberfall.xcodeproj" / "project.pbxproj").read_text()
+    check("GoogleMobileAds" not in pbx_text and "swift-package-manager-google-mobile-ads" not in pbx_text,
+          "no AdMob SPM package in project")
+
+    # Privacy manifest: ad-free game collects NO data types.
     priv = ROOT / "Emberfall" / "PrivacyInfo.xcprivacy"
     check(priv.exists(), "PrivacyInfo.xcprivacy exists")
     if priv.exists():
@@ -141,9 +151,8 @@ def main():
             manifest = plistlib.load(fh)
         check(manifest.get("NSPrivacyTracking") is False, "NSPrivacyTracking is false")
         collected = manifest.get("NSPrivacyCollectedDataTypes", [])
-        check(any(d.get("NSPrivacyCollectedDataType") == "NSPrivacyCollectedDataTypeDeviceID"
-                    for d in collected),
-              "Device ID declared for advertising")
+        check(collected == [],
+              "no collected data types declared (ad-free, no advertising SDK)")
 
     print()
     if failures:

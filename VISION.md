@@ -21,12 +21,13 @@ Phase 1: PvE-first iOS client (this repo) + Go kingdom server (sibling repo `emb
 - **Frozen contract is law.** Deviations are documented in README "Protocol notes" — never silent.
 - **Idempotency:** every non-auth mutation carries `Idempotency-Key`; retries reuse the same key.
 - `auth/dev` exists only under `#if DEBUG`. Debug-only UI never ships to review builds.
-- Monetization pacing: rewarded ads are opt-in; interstitials only on non-gameplay transitions, never mid-build/march/battle; remove-ads is honored everywhere.
+- Monetization: zero ads anywhere (no ad SDK). Shop = 3 consumable IAP bundles (speedups, summons, Warden's Cache); free players earn speedups from daily quests and the welcome track.
 
 ## Current state
 - 1.0.0 initial client built 2026-09-30, not yet compiled (no Swift toolchain on the Linux build VM — first compile via GitHub macOS runners / Xcode 16+).
-- Awaiting Henry: App Store Connect app + 3 IAPs, AdMob app + 2 ad units, provisioning profile (Sign in with Apple), `app-store-release-emberfall` secrets, production server URL, workflow upload via web UI.
+- Awaiting Henry: App Store Connect app + 3 IAPs (speedup bundle, summon epic10, Warden's Cache), provisioning profile (Sign in with Apple), `app-store-release-emberfall` secrets, production server URL, workflow upload via web UI. No AdMob work needed — the game is ad-free.
 - Awaiting server builder: research endpoint for phase-1 online play (client shows an honest notice until then); optional server-side receipt verification.
 
 ## Changelog
+- 2026-09-30: Ad-free surgery — removed all ads (AdsManager, GMA SPM dep, AdMob placements/IDs, advertising privacy declaration); replaced removeads IAP with Warden's Cache bundle; final 3 consumable IAPs. See CHANGELOG.md.
 - 2026-09-30: Initial build — full offline PvE, frozen-contract online client, ThemePack, StoreKit 2 + AdMob, release infra. See CHANGELOG.md.

@@ -13,10 +13,7 @@ Sign in with Apple is wired via Emberfall.entitlements
 (CODE_SIGN_ENTITLEMENTS); the App Store provisioning profile used by the
 release script must include the capability.
 
-Google Mobile Ads is pinned to the 11.x line (upToNextMajorVersion from
-11.0.0) from the official swift-package-manager-google-mobile-ads package.
-GMA 12.x renamed Swift API labels and 13.x removed the GAD prefix — do not
-bump the major version without rewriting AdsManager.swift.
+The game is fully ad-free: no advertising SDKs, no tracking.
 """
 from pathlib import Path
 
@@ -38,7 +35,6 @@ SWIFT_SOURCES = [
     ("Net/LocalSim.swift", ["Net"]),
     ("Game/GameState.swift", ["Game"]),
     ("Game/StoreManager.swift", ["Game"]),
-    ("Game/AdsManager.swift", ["Game"]),
     ("Game/Haptics.swift", ["Game"]),
     ("Game/SoundManager.swift", ["Game"]),
     ("Game/CityScene.swift", ["Game"]),
@@ -62,15 +58,9 @@ ENTITLEMENTS = "Emberfall.entitlements"
 FRAMEWORKS = ["SpriteKit.framework", "AVFoundation.framework", "StoreKit.framework",
               "AuthenticationServices.framework"]
 
-SPM_PACKAGES = [
-    {
-        "name": "swift-package-manager-google-mobile-ads",
-        "url": "https://github.com/googleads/swift-package-manager-google-mobile-ads",
-        "kind": "upToNextMajorVersion",
-        "minimumVersion": "11.0.0",
-        "products": ["GoogleMobileAds"],
-    },
-]
+# No third-party SPM dependencies. The game is fully ad-free: no
+# advertising SDKs, no analytics/tracking SDKs — StoreKit only.
+SPM_PACKAGES: list = []
 
 _ids = {}
 _counter = [0]
@@ -207,7 +197,7 @@ def main():
     if spm_dep_ids:
         a("\t\t\tpackageProductDependencies = (")
         for dep_id in spm_dep_ids:
-            a(f"\t\t\t\t{dep_id} /* GoogleMobileAds */,")
+            a(f"\t\t\t\t{dep_id} /* {product} */,")
         a("\t\t\t);")
     a(f"\t\tproductName = {APP_NAME}; productReference = " + app_product_id + f" /* {APP_NAME}.app */; productType = \"com.apple.product-type.application\"; }};")
 
@@ -223,7 +213,7 @@ def main():
     if spm_pkg_ids:
         a("\t\t\tpackageReferences = (")
         for pkg_id in spm_pkg_ids:
-            a(f"\t\t\t\t{pkg_id} /* XCRemoteSwiftPackageReference \"swift-package-manager-google-mobile-ads\" */,")
+            a(f"\t\t\t\t{pkg_id} /* XCRemoteSwiftPackageReference \"{pkg['name']}\" */,")
         a("\t\t\t);")
     a(f"\t\t\tmainGroup = {main_gid};")
     a("\t\t\tproductRefGroup = " + nid("group:Products") + " /* Products */;")

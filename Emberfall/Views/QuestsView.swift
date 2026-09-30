@@ -92,7 +92,7 @@ struct QuestsView: View {
     private func inventoryList(_ theme: ThemePack) -> some View {
         VStack(spacing: 8) {
             if game.inventory.isEmpty {
-                Text("Empty. Speedups come from quests, the welcome track, the shop — or a rewarded ad.")
+                Text("Empty. Speedups come from daily quests, the welcome track, and the shop.")
                     .font(.caption).foregroundColor(theme.textDim)
             }
             ForEach(game.inventory) { item in

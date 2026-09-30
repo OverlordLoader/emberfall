@@ -13,7 +13,7 @@ Phase 1 is PvE-first: city building, troops, research, a frost-node world map, m
 
 ```
 Emberfall/
-  EmberfallApp.swift          — entry: Ads warm-up, StoreKit product load, session restore
+  EmberfallApp.swift          — entry: StoreKit product load, session restore
   Theme/ThemePack.swift        — data-driven theme (all names, palette, copy live in JSON)
   Theme/Themes/emberfall.json  — theme #1 content pack
   Config/offline_config.json   — offline tuning (costs, timers, troop stats, pity, starter state)
@@ -27,7 +27,6 @@ Emberfall/
     GameState.swift            — single source of truth; offline ⇄ online mode bridge
     CityScene.swift            — SpriteKit 8×8 city grid (theme-colored, knows no theme names)
     StoreManager.swift         — StoreKit 2 (verified-only purchases, restore, refund handling)
-    AdsManager.swift           — AdMob rewarded + interstitial (generous pacing)
     Haptics.swift / SoundManager.swift — juice (synthesized SFX, no audio assets)
   Views/                       — City, Wilds, Wardens, Quests, Settings, Onboarding
 ```
@@ -52,25 +51,17 @@ Emberfall/
 
 ## Monetization (all Apple IAP — no external billing, no web links)
 
+**The game is fully ad-free.** No advertising SDK, no interstitials, no rewarded ads — free players earn speedups from daily quests and the 7-day welcome track. Because there are no ads, there is deliberately no "Remove Ads" product.
+
 | Product ID | Type | Price | Grants |
 |---|---|---|---|
-| `app.emberfall.game.removeads` | non-consumable | $4.99 | No ads, ever. Restorable; refunds bring ads back. |
 | `app.emberfall.game.bundle.speedup` | consumable | $1.99 | 3× 15-minute speedups for any queue. |
 | `app.emberfall.game.summon.epic10` | consumable | $4.99 | One 10× commander summon. |
+| `app.emberfall.game.bundle.warden` | consumable | $4.99 | **Warden's Cache:** 8× 15-minute speedups + 3 guaranteed epic wardens. |
 
 Only **verified** StoreKit 2 transactions grant anything; unverified transactions never grant. Consumables grant exactly once per transaction (a persisted granted-transaction set survives crashes/redeliveries). Offline, consumables grant locally; online, the verified transaction id rides on the next server call for server-side receipt verification (see Protocol notes).
 
-**Ads (AdMob, GMA 11.x via SPM):**
-- Rewarded ("watch an ad → free 15-min speedup") — explicit opt-in from any queue, never forced.
-- Interstitial — **only** on the non-gameplay transition of leaving Settings, at most once per session, never in the first 2 sessions, never within 60s of launch. Never during build/march/battle.
-- `#if DEBUG` builds use Google's official test IDs; release builds carry `TODO(Henry)` placeholders.
-
-### AdMob checklist for Henry
-- [ ] Create the AdMob iOS app for `app.emberfall.game`
-- [ ] Create one **Rewarded** ad unit → paste into `AdsManager.rewardedAdUnitID` (release branch)
-- [ ] Create one **Interstitial** ad unit → paste into `AdsManager.interstitialAdUnitID` (release branch)
-- [ ] Replace the AdMob **app ID** in `Info.plist` (`GADApplicationIdentifier`, currently the test ID with a `TODO(Henry)`)
-- [ ] Privacy: `PrivacyInfo.xcprivacy` declares Device ID for third-party advertising, linked=false, tracking=false (already in repo)
+Free-to-play speedup economy (no ads): daily quests grant speedups, the 7-day welcome track grants speedups on days 3 and 6, and new players start with 2 in inventory. Shop purchases are convenience only — never pay-to-win, never required.
 
 ### App Store Connect checklist for Henry
 - [ ] App record for `app.emberfall.game`

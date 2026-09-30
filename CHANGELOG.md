@@ -1,6 +1,10 @@
 # Changelog
 
-## 1.0.0 — 2026-09-30 (initial build, unreleased)
+## 1.0.1 — 2026-09-30 (unreleased)
+- **Ad-free by Henry's decision.** Removed the entire ads system: deleted `AdsManager.swift`, stripped the Google Mobile Ads SPM package from the Xcode project (regenerated via `tools/gen_pbxproj.py`), removed all rewarded/interstitial placements and call sites, removed `GADApplicationIdentifier` from Info.plist, and cleared the Device-ID-for-advertising declaration from `PrivacyInfo.xcprivacy` (manifest now declares zero collected data types).
+- Removed the `app.emberfall.game.removeads` IAP (a non-functional remove-ads product in an ad-free game is an Apple rejection risk). New third consumable: `app.emberfall.game.bundle.warden` ($4.99, Warden's Cache: 8× 15-min speedups + 3 guaranteed epic wardens via new `LocalSim.summonEpics(count:)`). Final shop: speedup bundle $1.99, epic summon 10× $4.99, Warden's Cache $4.99 — all consumable, no entitlements to restore.
+- Free speedup economy without ads: daily quests and the 7-day welcome track grant speedups; new players start with 2 in inventory; `GameState.speedup` no longer has an ad fallback.
+- Release check script updated: GoogleMobileAds is now a banned import, GADApplicationIdentifier must be absent, ad-system hardening checks added, IAP list updated, privacy check asserts zero collected data types.
 - Initial client: SwiftUI + SpriteKit, iOS 17+, portrait, bundle `app.emberfall.game`.
 - Data-driven ThemePack (`emberfall.json`): ember-vs-frost identity, palette, 8 buildings, 4 troops, 3 tiers, research, enemy, commander pools, all narrative copy. Variant #2 needs only new JSON + bundle ID.
 - Frozen REST/WS client: bearer JWT, per-call idempotency keys reused across 401-refresh retries, wss-only WebSocket with auto-reconnect and backoff.

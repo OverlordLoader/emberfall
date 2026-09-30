@@ -122,32 +122,29 @@ struct SettingsView: View {
     }
 
     private func shopRow(_ product: Product, _ theme: ThemePack) -> some View {
+        // All products are consumables — no "Owned" state to track.
         HStack {
             VStack(alignment: .leading) {
                 Text(product.displayName).foregroundColor(theme.text)
                 Text(shopBlurb(product.id)).font(.caption).foregroundColor(theme.textDim)
             }
             Spacer()
-            if product.id == StoreManager.removeAdsID && store.removeAds {
-                Text("Owned").font(.caption).bold().foregroundColor(theme.success)
-            } else {
-                Button(product.displayPrice) {
-                    Task { await store.purchase(product) }
-                }
-                .font(.caption).bold()
-                .padding(.horizontal, 12).padding(.vertical, 8)
-                .background(theme.primary).foregroundColor(.white)
-                .cornerRadius(8)
-                .disabled(store.purchaseInProgress)
+            Button(product.displayPrice) {
+                Task { await store.purchase(product) }
             }
+            .font(.caption).bold()
+            .padding(.horizontal, 12).padding(.vertical, 8)
+            .background(theme.primary).foregroundColor(.white)
+            .cornerRadius(8)
+            .disabled(store.purchaseInProgress)
         }
     }
 
     private func shopBlurb(_ id: String) -> String {
         switch id {
-        case StoreManager.removeAdsID: return "No ads, ever. One-time."
         case StoreManager.speedupBundleID: return "3× 15-minute speedups for any queue."
         case StoreManager.summonEpic10ID: return "Summon 10 wardens at once."
+        case StoreManager.wardenBundleID: return "Warden's Cache: 8× speedups + 3 epic wardens."
         default: return ""
         }
     }

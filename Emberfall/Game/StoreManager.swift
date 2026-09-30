@@ -5,28 +5,31 @@ import StoreKit
 /// StoreKit 2 purchases for Emberfall Kingdom. Everything goes through Apple —
 /// no external billing, no web links.
 ///
+/// The game is fully ad-free, so there is deliberately no "Remove Ads"
+/// product (a non-functional remove-ads IAP in an ad-free game risks an
+/// Apple rejection).
+///
 /// Products (must match App Store Connect exactly):
-/// - app.emberfall.game.removeads ....... non-consumable $4.99 — Remove Ads
-/// - app.emberfall.game.bundle.speedup .. consumable    $1.99 — 3× 15-min speedups
-/// - app.emberfall.game.summon.epic10 .. consumable    $4.99 — 10× commander summon
+/// - app.emberfall.game.bundle.speedup . consumable $1.99 — 3× 15-min speedups
+/// - app.emberfall.game.summon.epic10 .. consumable $4.99 — 10× commander summon
+/// - app.emberfall.game.bundle.warden .. consumable $4.99 — Warden's Cache:
+///   8× 15-min speedups + 3 guaranteed epic summons
 ///
 /// Consumables: after a VERIFIED purchase the transaction id is handed to
 /// GameState.grantConsumable, which grants locally (offline) or attaches the
 /// id to the next server call for server-side receipt verification (online).
 ///
 /// Concurrency: deliberately NOT @MainActor (mirrors the sibling games).
-/// @Published mutations hop to the main actor explicitly; reads (e.g. from
-/// AdsManager) are plain and main-thread in practice.
+/// @Published mutations hop to the main actor explicitly.
 final class StoreManager: ObservableObject {
     static let shared = StoreManager()
 
-    static let removeAdsID = "app.emberfall.game.removeads"
     static let speedupBundleID = "app.emberfall.game.bundle.speedup"
     static let summonEpic10ID = "app.emberfall.game.summon.epic10"
+    static let wardenBundleID = "app.emberfall.game.bundle.warden"
 
-    static let allProductIDs = [removeAdsID, speedupBundleID, summonEpic10ID]
+    static let allProductIDs = [speedupBundleID, summonEpic10ID, wardenBundleID]
 
-    @Published private(set) var removeAds = false
     @Published private(set) var products: [Product] = []
     @Published var purchaseInProgress = false
     @Published var lastError: String?
@@ -38,7 +41,6 @@ final class StoreManager: ObservableObject {
     private var updateListener: Task<Void, Error>?
 
     private enum Keys {
-        static let removeAds = "emberfall.store.removeAds"
         static let grantedTransactions = "emberfall.store.grantedTxns"
     }
 
@@ -51,7 +53,6 @@ final class StoreManager: ObservableObject {
     }
 
     private init() {
-        removeAds = UserDefaults.standard.bool(forKey: Keys.removeAds)
         updateListener = Task.detached { [weak self] in
             for await result in Transaction.updates {
                 await self?.handleUpdate(result)
@@ -134,10 +135,7 @@ final class StoreManager: ObservableObject {
     private func apply(_ transaction: Transaction) {
         let txnId = String(transaction.id)
         switch transaction.productID {
-        case Self.removeAdsID:
-            removeAds = true
-            UserDefaults.standard.set(true, forKey: Keys.removeAds)
-        case Self.speedupBundleID, Self.summonEpic10ID:
+        case Self.speedupBundleID, Self.summonEpic10ID, Self.wardenBundleID:
             // Consumable: grant once per verified transaction.
             var granted = grantedTransactions
             if !granted.contains(txnId) {
@@ -152,22 +150,9 @@ final class StoreManager: ObservableObject {
         }
     }
 
-    /// Re-reads current entitlements (covers restores and refunds).
-    /// A revoked Remove Ads (refund) brings ads back.
-    func refreshEntitlements() async {
-        var entitledRemoveAds = false
-        for await result in Transaction.currentEntitlements {
-            if case .verified(let transaction) = result,
-               transaction.revocationDate == nil,
-               transaction.productID == Self.removeAdsID {
-                entitledRemoveAds = true
-            }
-        }
-        await MainActor.run {
-            self.removeAds = entitledRemoveAds
-            UserDefaults.standard.set(entitledRemoveAds, forKey: Keys.removeAds)
-        }
-    }
+    /// All products are consumables, so there are no persistent entitlements
+    /// to refresh (restores are a no-op by design — kept for API symmetry).
+    func refreshEntitlements() async {}
 }
 
 enum StoreError: Error {

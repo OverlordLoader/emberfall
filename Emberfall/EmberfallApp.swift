@@ -4,11 +4,6 @@ import SwiftUI
 struct EmberfallApp: App {
     @StateObject private var game = GameState.shared
 
-    init() {
-        // Ads SDK warms up at launch; loads retry silently in background.
-        AdsManager.shared.configure()
-    }
-
     var body: some Scene {
         WindowGroup {
             RootView()
