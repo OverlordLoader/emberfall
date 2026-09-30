@@ -15,3 +15,11 @@
 - Paywall + shop in Settings, restore purchases, honest phase-2 shield stub, debug-only dev sign-in and save reset.
 - Release infra: generated Xcode project + scheme, 9 app icons, `scripts/apple-release.py`, `scripts/apple-release-check.py` (safety gate), privacy manifest (Device ID for advertising, linked=false, tracking=false), portrait-only Info.plist with `EmberThemeID`.
 - Protocol notes: `transaction_id` documented as an optional additive extension; online research deferred to the phase-1 server endpoint; report envelope tolerance documented.
+
+
+## September 30, 2026 - Independent source verification
+
+Declared the app-scoped UserDefaults required-reason API (CA92.1), based on the app's actual preferences and local save calls. This does not certify App Store privacy answers or third-party SDK behavior. Final signed archive privacy reports and actual-device/network behavior remain release gates.
+Corrected the false zero-collection assertion: the supplied server stores Apple user identifiers, device identifiers, gameplay state, and player chat content. Declared these linked, non-tracking app-functionality categories. Final privacy-policy/legal review and server retention/deletion verification remain outstanding.
+
+Versioned the previously missing release workflow with pinned actions, app-specific identity/environment, manual main-branch signing and upload disabled by default. Removed the incorrect requirement that workflows must stay outside GitHub. Signing environments/secrets, account budget and actual Mac builds remain unverified; nothing dispatched.
