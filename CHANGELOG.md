@@ -1,3 +1,7 @@
+## 2026-09-30 - Unwrap required offline starter configuration
+
+Native compilation reached fresh-state construction and found five accesses through optional starter configuration. Explicitly require starter only for bundled offline game creation, preserving the optional server config contract and all existing bundled values. Validated that bundled resource/troop fields exist; malformed offline packages fail explicitly rather than inventing starter balances.
+
 ## 2026-09-30 - Repair native sprite and away-sheet compilation
 
 The next actual compiler pass found an optional SKSpriteNode texture dereference and an incorrect AwaySheet argument label. Use the image-created sprite's initial size for scaling and pass values: to the existing sheet. No theme assets or offline resource values changed.
