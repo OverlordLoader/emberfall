@@ -39,7 +39,7 @@ final class GameState: ObservableObject {
 
     let local = LocalSim()
     let api = APIClient.shared
-    let ws = WSClient.shared
+    let ws = WSClient()
     let store = StoreManager.shared
 
     private var cityId: String?

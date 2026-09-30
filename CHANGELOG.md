@@ -1,3 +1,7 @@
+## 2026-09-30 - Repair duplicate helper and WebSocket construction
+
+Keep the single safe Array subscript in Net/Models.swift and remove its duplicate UI declaration. GameState, already a singleton, owns one WSClient instance rather than referring to a nonexistent shared property. Checkout remains disabled.
+
 ## 2026-09-30 — Unsigned native simulator verification
 
 Added a free public macOS compile/startup workflow, evidence capture, and a shared Xcode scheme where missing. Supports opening the existing game on Henry's MacBook without App Store submission. No paid service, signing or purchase. Build status is reported separately from full gameplay acceptance.
