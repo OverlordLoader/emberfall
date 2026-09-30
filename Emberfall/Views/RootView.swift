@@ -36,7 +36,7 @@ struct RootView: View {
             }
         }
         .sheet(item: $game.awaySheet) { box in
-            AwaySheet(gains: box.values)
+            AwaySheet(values: box.values)
         }
         .overlay(alignment: .top) {
             if let err = game.lastError {

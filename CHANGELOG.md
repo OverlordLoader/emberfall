@@ -1,3 +1,7 @@
+## 2026-09-30 - Repair native sprite and away-sheet compilation
+
+The next actual compiler pass found an optional SKSpriteNode texture dereference and an incorrect AwaySheet argument label. Use the image-created sprite's initial size for scaling and pass values: to the existing sheet. No theme assets or offline resource values changed.
+
 ## 2026-09-30 - Correct theme helper argument labels
 
 After duplicate-helper and WebSocket construction fixes compiled, native compilation reached four enemy/commander image lookups missing the existing name: argument label. Corrected those call sites without changing the theme keys or artwork.
