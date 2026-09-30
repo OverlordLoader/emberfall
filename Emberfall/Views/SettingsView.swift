@@ -101,7 +101,10 @@ struct SettingsView: View {
             ForEach(store.products) { product in
                 shopRow(product, theme)
             }
-            if store.products.isEmpty {
+            if !StoreManager.purchasesEnabled {
+                Text("Purchases aren't available yet. You can keep playing for free.")
+                    .font(.caption).foregroundColor(theme.textDim)
+            } else if store.products.isEmpty {
                 Text("Loading the shop…").font(.caption).foregroundColor(theme.textDim)
                     .onAppear { Task { await store.requestProducts() } }
             }

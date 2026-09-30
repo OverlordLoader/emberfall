@@ -370,8 +370,8 @@ final class GameState: ObservableObject {
     // MARK: - IAP grants (consumables)
 
     /// Called by StoreManager after a verified consumable purchase.
-    /// Offline: granted locally. Online: the transaction id rides along so
-    /// the server can verify the receipt before granting (see Protocol notes).
+    /// Offline: granted locally. Online receipt transmission and durable
+    /// fulfillment are not implemented; StoreManager keeps checkout disabled.
     func grantConsumable(_ productId: String, transactionId: String) {
         store.lastTransactionId = transactionId
         if mode == .offline {
@@ -388,8 +388,8 @@ final class GameState: ObservableObject {
             }
             refreshLocal()
         }
-        // Online grants happen implicitly: the next speedup()/summon() call
-        // carries lastTransactionId for server-side verification.
+        // No online grant occurs here. APIClient does not transmit this ID.
+        // Do not enable checkout until verified server fulfillment is wired.
     }
 
     // MARK: - Auth flows
