@@ -41,3 +41,7 @@ Corrected the false zero-collection assertion: the supplied server stores Apple 
 Versioned the previously missing release workflow with pinned actions, app-specific identity/environment, manual main-branch signing and upload disabled by default. Removed the incorrect requirement that workflows must stay outside GitHub. Signing environments/secrets, account budget and actual Mac builds remain unverified; nothing dispatched.
 
 Further purchase review found a launch-blocking gap: the client finished consumable transactions and marked them granted while online fulfillment was absent. APIClient never sends lastTransactionId; the server labels receipt verification a future phase. Disabled checkout/product loading and guarded incoming transaction handling before grant/finish. The shop now says purchases are unavailable while free play remains usable. Pending transactions are left unfinished. Durable account-bound fulfillment and sandbox acceptance remain required before enabling purchases; this is containment, not completed billing.
+
+## October 2, 2026 - Review PR #1 merged
+
+- 2026-10-02: PR #1 "fix: prepare native sources and privacy for launch review" merged to main - Launch review prep: native sources, privacy declarations, and official approved icons. Merge commit a6e8bbd58385ab6f44bb0abfa6cf2a4072c810b8.
