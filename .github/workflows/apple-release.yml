@@ -1,0 +1,72 @@
+name: Apple App Store release
+on:
+  pull_request:
+    paths: [".github/workflows/apple-release.yml", "scripts/apple-release*.py"]
+  workflow_dispatch:
+    inputs:
+      build_number:
+        description: Unique build number above every uploaded build
+        type: string
+        required: true
+        default: "1"
+      upload:
+        description: Upload validated build to TestFlight; never submit for review
+        type: boolean
+        required: true
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: apple-release-${{ github.repository }}-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  release-safety:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - run: python3 scripts/apple-release-check.py
+  signed-release:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+    needs: release-safety
+    runs-on: macos-latest
+    environment: app-store-release-emberfall
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Sign, validate and optionally upload
+        run: python3 scripts/apple-release.py
+        env:
+          APP_BUNDLE_ID: app.emberfall.game
+          RELEASE_REF: refs/heads/main
+          RELEASE_BUILD_NUMBER: ${{ inputs.build_number }}
+          UPLOAD_TO_APPLE: ${{ inputs.upload }}
+          APPLE_DISTRIBUTION_P12_BASE64: ${{ secrets.APPLE_DISTRIBUTION_P12_BASE64 }}
+          APPLE_DISTRIBUTION_P12_PASSWORD: ${{ secrets.APPLE_DISTRIBUTION_P12_PASSWORD }}
+          APPLE_PROFILE_BASE64: ${{ secrets.APPLE_PROFILE_BASE64 }}
+          APP_STORE_CONNECT_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_KEY_BASE64 }}
+      - name: Preserve verified release output
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ios-${{ inputs.build_number }}-${{ github.run_attempt }}
+          path: release-output/
+          if-no-files-found: ignore
+          retention-days: 14
+      - name: Remove temporary signing material
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in emberfall-apple-release orizon-apple-release; do
+            path="$RUNNER_TEMP/$name"
+            if [ -f "$path/signing.keychain-db" ]; then
+              security delete-keychain "$path/signing.keychain-db" || true
+            fi
+            rm -rf -- "$path"
+          done
+          rm -f -- "$HOME/.appstoreconnect/private_keys/AuthKey_6K3UZ87UDR.p8"

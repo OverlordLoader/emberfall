@@ -16,13 +16,17 @@ import StoreKit
 ///   8× 15-min speedups + 3 guaranteed epic summons
 ///
 /// Consumables: after a VERIFIED purchase the transaction id is handed to
-/// GameState.grantConsumable, which grants locally (offline) or attaches the
-/// id to the next server call for server-side receipt verification (online).
+/// GameState.grantConsumable for a local grant. Online receipt fulfillment
+/// is not implemented; checkout stays disabled until durable delivery is tested.
 ///
 /// Concurrency: deliberately NOT @MainActor (mirrors the sibling games).
 /// @Published mutations hop to the main actor explicitly.
 final class StoreManager: ObservableObject {
     static let shared = StoreManager()
+
+    // Keep checkout off until durable fulfillment, account binding and replay
+    // handling pass sandbox tests. The supplied online receipt route is absent.
+    static let purchasesEnabled = false
 
     static let speedupBundleID = "app.emberfall.game.bundle.speedup"
     static let summonEpic10ID = "app.emberfall.game.summon.epic10"
@@ -35,7 +39,7 @@ final class StoreManager: ObservableObject {
     @Published var lastError: String?
 
     /// Set after a verified consumable purchase (on the main actor);
-    /// consumed by the next server-bound grant call.
+    /// reserved for a future server grant integration (currently not transmitted).
     var lastTransactionId: String?
 
     private var updateListener: Task<Void, Error>?
@@ -64,6 +68,7 @@ final class StoreManager: ObservableObject {
     // MARK: - Products
 
     func requestProducts() async {
+        guard Self.purchasesEnabled else { return }
         do {
             let fetched = try await Product.products(for: Self.allProductIDs)
             await MainActor.run { self.products = fetched }
@@ -81,6 +86,10 @@ final class StoreManager: ObservableObject {
     // MARK: - Purchase
 
     func purchase(_ product: Product) async {
+        guard Self.purchasesEnabled else {
+            await MainActor.run { self.lastError = "Purchases aren't available yet. You can keep playing for free." }
+            return
+        }
         let busy = await MainActor.run { () -> Bool in
             guard !self.purchaseInProgress else { return true }
             self.purchaseInProgress = true
@@ -122,6 +131,9 @@ final class StoreManager: ObservableObject {
     }
 
     private func handleVerified(_ verification: VerificationResult<Transaction>) async throws {
+        // Leave any delivered transaction unfinished for a future verified
+        // fulfillment path; do not acknowledge a purchase without granting it.
+        guard Self.purchasesEnabled else { throw StoreError.purchasesUnavailable }
         switch verification {
         case .verified(let transaction):
             await MainActor.run { self.apply(transaction) }
@@ -157,4 +169,5 @@ final class StoreManager: ObservableObject {
 
 enum StoreError: Error {
     case failedVerification
+    case purchasesUnavailable
 }

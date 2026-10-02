@@ -89,7 +89,7 @@ final class CityScene: SKScene {
                 container.addChild(ring)
             }
             let sprite = SKSpriteNode(imageNamed: spriteName)
-            let dim = max(sprite.texture.size().width, sprite.texture.size().height)
+            let dim = max(sprite.size.width, sprite.size.height)
             if dim > 0 { sprite.setScale((s * 0.92) / dim) }
             if b.state == "building" { sprite.alpha = 0.55 }
             container.addChild(sprite)

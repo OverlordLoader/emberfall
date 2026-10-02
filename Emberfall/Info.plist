@@ -6,6 +6,8 @@
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
 	<string>Emberfall Kingdom</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -23,7 +25,7 @@
 	<key>EmberThemeID</key>
 	<string>emberfall</string>
 	<!-- Build flavor: which ThemePack JSON to load from Theme/Themes/.
-	     A reskin variant changes this to its own theme id + bundle ID —
+	     A reskin variant changes this to its own theme id + bundle ID â€”
 	     zero logic changes. See README "Adding a theme variant". -->
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

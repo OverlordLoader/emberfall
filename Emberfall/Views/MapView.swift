@@ -71,7 +71,7 @@ struct MapView: View {
                 } else if node != nil {
                     // Enemy hook: v2 art drops in via theme art names; today
                     // the snowflake glyph fallback renders.
-                    themedImage(theme.enemySprite(node?.name ?? ""),
+                    themedImage(theme.enemySprite(name: node?.name ?? ""),
                                 systemFallback: "snowflake", size: max(cell * 0.55, 4))
                         .foregroundColor((node?.level ?? 1) >= 3 ? theme.accent : theme.textDim)
                 }
@@ -138,7 +138,7 @@ struct MarchSheet: View {
         let theme = ThemePack.active
         NavigationStack {
             VStack(spacing: 12) {
-                themedImage(theme.enemySprite(node.name), systemFallback: "snowflake", size: 44)
+                themedImage(theme.enemySprite(name: node.name), systemFallback: "snowflake", size: 44)
                 Text(node.name).font(.title3).bold().foregroundColor(theme.text)
                 Text("Level \(node.level) \(theme.enemy.plural.singularized()) den")
                     .font(.caption).foregroundColor(theme.textDim)

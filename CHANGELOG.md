@@ -1,3 +1,23 @@
+## 2026-09-30 - Unwrap required offline starter configuration
+
+Native compilation reached fresh-state construction and found five accesses through optional starter configuration. Explicitly require starter only for bundled offline game creation, preserving the optional server config contract and all existing bundled values. Validated that bundled resource/troop fields exist; malformed offline packages fail explicitly rather than inventing starter balances.
+
+## 2026-09-30 - Repair native sprite and away-sheet compilation
+
+The next actual compiler pass found an optional SKSpriteNode texture dereference and an incorrect AwaySheet argument label. Use the image-created sprite's initial size for scaling and pass values: to the existing sheet. No theme assets or offline resource values changed.
+
+## 2026-09-30 - Correct theme helper argument labels
+
+After duplicate-helper and WebSocket construction fixes compiled, native compilation reached four enemy/commander image lookups missing the existing name: argument label. Corrected those call sites without changing the theme keys or artwork.
+
+## 2026-09-30 - Repair duplicate helper and WebSocket construction
+
+Keep the single safe Array subscript in Net/Models.swift and remove its duplicate UI declaration. GameState, already a singleton, owns one WSClient instance rather than referring to a nonexistent shared property. Checkout remains disabled.
+
+## 2026-09-30 — Unsigned native simulator verification
+
+Added a free public macOS compile/startup workflow, evidence capture, and a shared Xcode scheme where missing. Supports opening the existing game on Henry's MacBook without App Store submission. No paid service, signing or purchase. Build status is reported separately from full gameplay acceptance.
+
 # Changelog
 
 ## 1.0.1 — 2026-09-30 (unreleased)
@@ -15,3 +35,13 @@
 - Paywall + shop in Settings, restore purchases, honest phase-2 shield stub, debug-only dev sign-in and save reset.
 - Release infra: generated Xcode project + scheme, 9 app icons, `scripts/apple-release.py`, `scripts/apple-release-check.py` (safety gate), privacy manifest (Device ID for advertising, linked=false, tracking=false), portrait-only Info.plist with `EmberThemeID`.
 - Protocol notes: `transaction_id` documented as an optional additive extension; online research deferred to the phase-1 server endpoint; report envelope tolerance documented.
+
+
+## September 30, 2026 - Independent source verification
+
+Declared the app-scoped UserDefaults required-reason API (CA92.1), based on the app's actual preferences and local save calls. This does not certify App Store privacy answers or third-party SDK behavior. Final signed archive privacy reports and actual-device/network behavior remain release gates.
+Corrected the false zero-collection assertion: the supplied server stores Apple user identifiers, device identifiers, gameplay state, and player chat content. Declared these linked, non-tracking app-functionality categories. Final privacy-policy/legal review and server retention/deletion verification remain outstanding.
+
+Versioned the previously missing release workflow with pinned actions, app-specific identity/environment, manual main-branch signing and upload disabled by default. Removed the incorrect requirement that workflows must stay outside GitHub. Signing environments/secrets, account budget and actual Mac builds remain unverified; nothing dispatched.
+
+Further purchase review found a launch-blocking gap: the client finished consumable transactions and marked them granted while online fulfillment was absent. APIClient never sends lastTransactionId; the server labels receipt verification a future phase. Disabled checkout/product loading and guarded incoming transaction handling before grant/finish. The shop now says purchases are unavailable while free play remains usable. Pending transactions are left unfinished. Durable account-bound fulfillment and sandbox acceptance remain required before enabling purchases; this is containment, not completed billing.

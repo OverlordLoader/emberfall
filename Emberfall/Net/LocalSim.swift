@@ -122,6 +122,9 @@ final class LocalSim: ObservableObject {
 
     static func freshState() -> State {
         let cfg = GameConfig.bundled()
+        guard let starter = cfg.starter else {
+            fatalError("Bundled offline configuration requires starter resources")
+        }
         let now = Date()
         var resources: [String: ResourceState] = [:]
         for kind in ResourceKind.allCases {
@@ -129,15 +132,15 @@ final class LocalSim: ObservableObject {
             let cap = Double(cfg.production.baseCap)
             let amt: Double
             switch kind {
-            case .wood: amt = Double(cfg.starter.wood)
-            case .stone: amt = Double(cfg.starter.stone)
-            case .food: amt = Double(cfg.starter.food)
-            case .gold: amt = Double(cfg.starter.gold)
+            case .wood: amt = Double(starter.wood)
+            case .stone: amt = Double(starter.stone)
+            case .food: amt = Double(starter.food)
+            case .gold: amt = Double(starter.gold)
             }
             resources[kind.rawValue] = ResourceState(amount: amt, ratePerSec: rate, cap: cap, updatedAt: now)
         }
         var troops: [String: [String: Int]] = ["1": [:], "2": [:], "3": [:]]
-        for (t, n) in cfg.starter.troops { troops["1"]?[t] = n }
+        for (t, n) in starter.troops { troops["1"]?[t] = n }
         var nodes: [NodeRec] = []
         let theme = ThemePack.active
         var rng = SeededRNG(seed: 12345)

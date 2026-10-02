@@ -31,3 +31,13 @@ Phase 1: PvE-first iOS client (this repo) + Go kingdom server (sibling repo `emb
 ## Changelog
 - 2026-09-30: Ad-free surgery — removed all ads (AdsManager, GMA SPM dep, AdMob placements/IDs, advertising privacy declaration); replaced removeads IAP with Warden's Cache bundle; final 3 consumable IAPs. See CHANGELOG.md.
 - 2026-09-30: Initial build — full offline PvE, frozen-contract online client, ThemePack, StoreKit 2 + AdMob, release infra. See CHANGELOG.md.
+
+
+## September 30, 2026 - Independent source verification
+
+Declared the app-scoped UserDefaults required-reason API (CA92.1), based on the app's actual preferences and local save calls. This does not certify App Store privacy answers or third-party SDK behavior. Final signed archive privacy reports and actual-device/network behavior remain release gates.
+Corrected the false zero-collection assertion: the supplied server stores Apple user identifiers, device identifiers, gameplay state, and player chat content. Declared these linked, non-tracking app-functionality categories. Final privacy-policy/legal review and server retention/deletion verification remain outstanding.
+
+Versioned the previously missing release workflow with pinned actions, app-specific identity/environment, manual main-branch signing and upload disabled by default. Removed the incorrect requirement that workflows must stay outside GitHub. Signing environments/secrets, account budget and actual Mac builds remain unverified; nothing dispatched.
+
+Further purchase review found a launch-blocking gap: the client finished consumable transactions and marked them granted while online fulfillment was absent. APIClient never sends lastTransactionId; the server labels receipt verification a future phase. Disabled checkout/product loading and guarded incoming transaction handling before grant/finish. The shop now says purchases are unavailable while free play remains usable. Pending transactions are left unfinished. Durable account-bound fulfillment and sandbox acceptance remain required before enabling purchases; this is containment, not completed billing.

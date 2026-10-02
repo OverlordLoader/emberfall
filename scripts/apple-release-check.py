@@ -8,11 +8,7 @@ non-exempt-encryption declaration, theme-pack integrity (every theme string
 the game shows comes from bundled JSON — the reskin contract), and the
 frozen client/server protocol surface.
 
-NOTE on the release workflow: GitHub blocks pushing `.github/workflows/`
-with the app's token, so the apple-release.yml workflow is maintained
-outside this repo (~/workspace/your_files/emberfall-apple-release.yml)
-and uploaded by Henry via the GitHub web UI. The check below validates it
-when present; its absence in-repo is expected, not a failure.
+The release workflow is versioned in this repository; signing remains manual.
 """
 
 import json
@@ -26,7 +22,7 @@ EXPECTED_BUNDLE = "app.emberfall.game"
 EXPECTED_DISPLAY_NAME = "Emberfall Kingdom"
 MIN_DEPLOYMENT = (17, 0)
 
-# Third-party SDKs that would violate the zero-data-collection promise.
+# Third-party analytics and advertising SDKs excluded from this game.
 # Emberfall Kingdom is fully AD-FREE: no advertising SDK is allowed at all.
 # (GoogleMobileAds is banned — the game ships with zero ads.)
 BANNED_IMPORTS = [
@@ -143,7 +139,7 @@ def main():
     check("GoogleMobileAds" not in pbx_text and "swift-package-manager-google-mobile-ads" not in pbx_text,
           "no AdMob SPM package in project")
 
-    # Privacy manifest: ad-free game collects NO data types.
+    # Privacy manifest: no ads or tracking; online account/game/chat data is collected.
     priv = ROOT / "Emberfall" / "PrivacyInfo.xcprivacy"
     check(priv.exists(), "PrivacyInfo.xcprivacy exists")
     if priv.exists():
@@ -151,8 +147,11 @@ def main():
             manifest = plistlib.load(fh)
         check(manifest.get("NSPrivacyTracking") is False, "NSPrivacyTracking is false")
         collected = manifest.get("NSPrivacyCollectedDataTypes", [])
-        check(collected == [],
-              "no collected data types declared (ad-free, no advertising SDK)")
+        expected_types = {"NSPrivacyCollectedDataType" + kind for kind in ["UserID", "DeviceID", "GameplayContent", "OtherUserContent"]}
+        check({item.get("NSPrivacyCollectedDataType") for item in collected} == expected_types,
+              "account, device, gameplay and chat collection is declared")
+        check(all(item.get("NSPrivacyCollectedDataTypeLinked") is True and item.get("NSPrivacyCollectedDataTypeTracking") is False for item in collected),
+              "online data is linked to the account, not used for tracking")
 
     # Theme art integrity: every sprite named in the theme's art section
     # exists as an imageset in the theme's asset-catalog folder. Missing art
@@ -176,6 +175,13 @@ def main():
         check(expected != [], f"theme art section names {len(expected)} assets")
         check(not missing_art,
               f"all theme art assets exist in catalog ({len(missing_art)} missing)")
+
+    workflow = ROOT / ".github" / "workflows" / "apple-release.yml"
+    check(workflow.exists(), "versioned release workflow exists")
+    if workflow.exists():
+        wf = workflow.read_text()
+        check("environment: app-store-release-emberfall" in wf, "dedicated release environment")
+        check("APP_BUNDLE_ID: app.emberfall.game" in wf, "workflow bundle identity")
 
     print()
     if failures:
