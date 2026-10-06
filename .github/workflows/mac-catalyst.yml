@@ -1,0 +1,90 @@
+name: Mac test build (Catalyst)
+
+on:
+  push:
+    branches: ["claude/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  PROJECT: "Emberfall.xcodeproj"
+  SCHEME: "Emberfall"
+  APP_NAME: "Emberfall"
+
+jobs:
+  catalyst:
+    runs-on: macos-15
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer && xcodebuild -version
+      - name: Enable Mac Catalyst in the project (build-time only, nothing committed)
+        run: |
+          set -e
+          PBX="$PROJECT/project.pbxproj"
+          grep -q "SUPPORTS_MACCATALYST" "$PBX" || \
+            sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = \([0-9.]*\);/IPHONEOS_DEPLOYMENT_TARGET = \1; SUPPORTS_MACCATALYST = YES; DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES; TARGETED_DEVICE_FAMILY = "1,2";/' "$PBX"
+          # Make sure a shared scheme exists so xcodebuild can pick a destination.
+          SCHEMES="$PROJECT/xcshareddata/xcschemes"
+          if [ ! -f "$SCHEMES/$SCHEME.xcscheme" ]; then
+            mkdir -p "$SCHEMES"
+            TID=$(grep -E "isa = PBXNativeTarget" "$PBX" | head -1 | grep -oE '[0-9A-F]{24}' | head -1)
+            cat > "$SCHEMES/$SCHEME.xcscheme" <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <Scheme LastUpgradeVersion="1600" version="1.7">
+            <BuildAction parallelizeBuildables="YES" buildImplicitDependencies="YES">
+              <BuildActionEntries>
+                <BuildActionEntry buildForTesting="YES" buildForRunning="YES" buildForProfiling="YES" buildForArchiving="YES" buildForAnalyzing="YES">
+                  <BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="$TID" BuildableName="$SCHEME.app" BlueprintName="$SCHEME" ReferencedContainer="container:$(basename "$PROJECT")"/>
+                </BuildActionEntry>
+              </BuildActionEntries>
+            </BuildAction>
+            <LaunchAction buildConfiguration="Release" selectedDebuggerIdentifier="Xcode.DebuggerFoundation.Debugger.LLDB" selectedLauncherIdentifier="Xcode.DebuggerFoundation.Launcher.LLDB" launchStyle="0" useCustomWorkingDirectory="NO" ignoresPersistentStateOnLaunch="NO" debugDocumentVersioning="YES" debugServiceExtension="internal" allowLocationSimulation="YES">
+              <BuildableProductRunnable runnableDebuggingMode="0">
+                <BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="$TID" BuildableName="$SCHEME.app" BlueprintName="$SCHEME" ReferencedContainer="container:$(basename "$PROJECT")"/>
+              </BuildableProductRunnable>
+            </LaunchAction>
+          </Scheme>
+          EOF
+            echo "Created scheme $SCHEME for target $TID"
+          fi
+          xcodebuild -project "$PROJECT" -list | head -30
+      - name: Build for Mac Catalyst
+        run: |
+          set -o pipefail
+          xcodebuild -project "$PROJECT" -scheme "$SCHEME" -configuration Release \
+            -destination 'platform=macOS,variant=Mac Catalyst' -derivedDataPath build \
+            CODE_SIGN_IDENTITY="-" CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM="" \
+            PROVISIONING_PROFILE_SPECIFIER="" build 2>&1 | tee build.log | grep -E "error:|BUILD (SUCCEEDED|FAILED)" || true
+          grep -q "BUILD SUCCEEDED" build.log
+      - name: Show compile errors
+        if: failure()
+        run: grep -E "error:" build.log | sort -u | head -120 || true
+      - name: Package app
+        run: |
+          set -e
+          cd build/Build/Products/Release-maccatalyst
+          APP=$(ls -d *.app | head -1)
+          if [ "$APP" != "$APP_NAME.app" ]; then mv "$APP" "$APP_NAME.app"; fi
+          ditto -c -k --sequesterRsrc --keepParent "$APP_NAME.app" "$APP_NAME-Mac.zip"
+          ls -lh "$APP_NAME-Mac.zip"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.APP_NAME }}-Mac
+          path: build/Build/Products/Release-maccatalyst/${{ env.APP_NAME }}-Mac.zip
+      - name: Publish pre-release (one download link)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="mac-test-builds"
+          ZIP="build/Build/Products/Release-maccatalyst/$APP_NAME-Mac.zip"
+          NOTES="Mac test build of $APP_NAME from ${GITHUB_REF_NAME} at ${GITHUB_SHA:0:7} on $(date -u '+%Y-%m-%d %H:%M UTC'). Unzip, then right-click the app > Open (or System Settings > Privacy & Security > Open Anyway) the first time."
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release edit "$TAG" --notes "$NOTES" --target "$GITHUB_SHA"
+          else
+            gh release create "$TAG" --prerelease --title "Mac test build (latest)" --notes "$NOTES" --target "$GITHUB_SHA"
+          fi
+          gh release upload "$TAG" "$ZIP" --clobber
